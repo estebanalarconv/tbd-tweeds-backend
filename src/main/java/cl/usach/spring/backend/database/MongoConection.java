@@ -8,7 +8,7 @@ import com.mongodb.client.MongoCollection;
 import java.util.Iterator;
 
 import org.bson.Document;
-
+import twitter4j.Status;
 
 
 public class MongoConection {
@@ -32,11 +32,17 @@ public class MongoConection {
 	      	    
 	}
 	
-	public void agregarDocumento(MongoCollection<Document> collection, long id, String text){
+	public void agregarDocumento(MongoCollection<Document> collection, Status statusTweet){
 	   
 		 //Ejemplo para agregar datos
-	      Document document = new Document("id", id) 
-	      .append("text", text);
+	      Document document = new Document("id", statusTweet.getId())
+				  .append("text", statusTweet.getText())
+				  .append("user", statusTweet.getUser())
+				  .append("retweets",statusTweet.getRetweetCount())
+				  .append("geolocation", statusTweet.getPlace())
+				  .append("likes",statusTweet.getFavoriteCount())
+				  .append("created_at",statusTweet.getCreatedAt());
+
 	      collection.insertOne(document); 	   
 		
 	}

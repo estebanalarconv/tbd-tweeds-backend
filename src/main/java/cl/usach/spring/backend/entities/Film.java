@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Entity
 @Table(name="film")
-@NamedQuery(name="Film.findAll", query="SELECT f FROM Film f")
+//@NamedQuery(name="Film.findAll", query="SELECT f FROM Film f")
 public class Film implements Serializable {
 	private static final long serialVersionUID = 1L;
 

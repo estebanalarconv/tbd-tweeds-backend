@@ -58,6 +58,7 @@ public class Index {
 		         System.out.println(text);
 		    	  lDocument.add(new Field("fieldname", text, TextField.TYPE_STORED));
 		    	  lDocument.add(new StringField("text", text, Field.Store.YES));
+
 		    	  
 		    	  iwriter.addDocument(lDocument);
 		      }
