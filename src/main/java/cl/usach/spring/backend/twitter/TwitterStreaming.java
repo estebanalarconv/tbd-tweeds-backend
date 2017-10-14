@@ -69,12 +69,16 @@ public class TwitterStreaming {
 			@Override
 			public void onStatus(Status status) {
 
-			if (status.getUser().getLocation().contains("Chile")
+
+			if (status.getLang().equals("es") && (status.getUser().getLocation().contains("Chile")
 					|| status.getUser().getLocation().contains("CL")
-					|| status.getUser().getLocation().contains("CHL"))
+					|| status.getUser().getLocation().contains("CHL")))
+			{
 				mc.agregarDocumento(collection, status);
 				System.out.println(status.getId());
 				System.out.println(status.getText());
+			}
+
 
 			}
 		};
