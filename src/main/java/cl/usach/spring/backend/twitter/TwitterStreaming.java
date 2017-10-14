@@ -42,7 +42,7 @@ public class TwitterStreaming {
 	private void init() {
 		MongoConection mc = new MongoConection();
 		MongoCollection<Document> collection = mc.ConectarMongo();
-		
+
 		StatusListener listener = new StatusListener() {
 
 			public void onDeletionNotice(StatusDeletionNotice statusDeletionNotice) {
@@ -67,17 +67,21 @@ public class TwitterStreaming {
 			}
 
 			@Override
-			public void onStatus(Status status) {
+			public void onStatus(Status status)
+			{
 
+				try
+				{
 
-				if (status.getLang().equals("es") &&
-					(status.getUser().getLocation().contains("Chile")
-					|| status.getUser().getLocation().contains("CL")
-					|| status.getUser().getLocation().contains("CHL"))) {
-					mc.agregarDocumento(collection, status);
-					System.out.println(status.getId());
-					System.out.println(status.getText());
-				}
+					if (status.getLang().equals("es") &&
+							(status.getUser().getLocation().contains("Chile")
+									|| status.getUser().getLocation().contains("CL")
+									|| status.getUser().getLocation().contains("CHL"))) {
+						mc.agregarDocumento(collection, status);
+						System.out.println(status.getId());
+						System.out.println(status.getText());
+					}
+				}catch (NullPointerException e){System.out.println("Excepción NullPointerException");}
 			}
 		};
 
