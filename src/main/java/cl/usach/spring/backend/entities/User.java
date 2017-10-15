@@ -2,6 +2,7 @@ package cl.usach.spring.backend.entities;
 
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="users")
@@ -24,6 +25,11 @@ public class User {
     @ManyToOne
     @JoinColumn(name="statistic_id", referencedColumnName = "statistic_id")
     private Statistic statistic;
+
+
+
+    @OneToMany(mappedBy = "tweets")
+    private List<Tweet> tweets;
 
     public int getUserId() {
         return this.userId;
@@ -63,5 +69,13 @@ public class User {
 
     public void setStatistic(Statistic statistic) {
         this.statistic = statistic;
+    }
+
+    public List<Tweet> getTweets() {
+        return this.tweets;
+    }
+
+    public void setTweets(List<Tweet> tweets) {
+        this.tweets = tweets;
     }
 }

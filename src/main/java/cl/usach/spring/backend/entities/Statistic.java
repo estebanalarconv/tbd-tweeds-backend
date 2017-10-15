@@ -29,8 +29,8 @@ public class Statistic {
     @ManyToMany
     @JsonIgnore
     @JoinTable(name = "statistic_topic",
-            joinColumns=@JoinColumn(name="film_id", referencedColumnName="film_id"),
-            inverseJoinColumns=@JoinColumn(name="actor_id", referencedColumnName="actor_id"))
+            joinColumns=@JoinColumn(name="statistic_id", referencedColumnName="statistic_id"),
+            inverseJoinColumns=@JoinColumn(name="topic_id", referencedColumnName="topic_id"))
     private List<Topic> topics;
 
     public int getStatisticId() { return this.statisticId;}

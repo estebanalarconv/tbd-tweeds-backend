@@ -22,6 +22,12 @@ public class Topic {
     @JsonIgnore
     private List<Statistic> statistics;
 
+
+
+    @ManyToMany(mappedBy = "topics")
+    @JsonIgnore
+    private List<Keyword> keywords;
+
     public int getTopicId() {
         return this.topicId;
     }
@@ -46,4 +52,11 @@ public class Topic {
         this.statistics = statistics;
     }
 
+    public List<Keyword> getKeywords() {
+        return this.keywords;
+    }
+
+    public void setKeywords(List<Keyword> keywords) {
+        this.keywords = keywords;
+    }
 }

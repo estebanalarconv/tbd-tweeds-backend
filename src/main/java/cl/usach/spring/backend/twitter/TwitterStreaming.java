@@ -91,6 +91,7 @@ public class TwitterStreaming {
 
 		this.twitterStream.addListener(listener);
 		this.twitterStream.filter(fq);
+
 	}
 	/*
 	public static void main(String[] args) {

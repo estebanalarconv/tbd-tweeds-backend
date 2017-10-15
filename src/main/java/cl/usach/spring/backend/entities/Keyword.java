@@ -22,7 +22,9 @@ public class Keyword {
     private int value;
 
     @ManyToMany(cascade = {CascadeType.ALL},mappedBy="keywords")
-    @JsonIgnore
+    @JoinTable(name = "keyword_topic",
+            joinColumns=@JoinColumn(name="keyword_id", referencedColumnName="keyword_id"),
+            inverseJoinColumns=@JoinColumn(name="topic_id", referencedColumnName="topic_id"))
     private List<Topic> topics;
 
     public Keyword(){
