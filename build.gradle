@@ -14,7 +14,7 @@ apply plugin: 'org.springframework.boot'
 
 
 springBoot {
-    mainClass = 'cl.citiaps.spring.backend.application.Application'
+    mainClass = 'cl.citiaps.twitter.streaming'
 }
 
 bootRun {
