@@ -36,18 +36,30 @@ import twitter4j.TwitterStream;
 import twitter4j.TwitterStreamFactory;
 import twitter4j.User;
 import twitter4j.auth.AccessToken;
+import twitter4j.conf.ConfigurationBuilder;
 
 public class TwitterStreaming {
 
 	private final TwitterStream twitterStream;
 	private Set<String> keywords;
+	private ConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
+	private String consumerKey = "EUxGcjKPwsP6ofk6zDzBg9gwA";
+	private String consumerSecret = "w0D6xgOpsqwmVORSRVFSNY0ELga8N6ouOQyDGpNff6Wbngl5nQ";
+	private String accessToken = "876631680127258625-EXuEQGY6FCIuQVx2aAay82ovW03SdU6";
+	private String accessTokenSecret = "kEz3cjU4USjWaI5YuUROEBw4UWjKLepNfsURHVV9OSxYZ";
+
+
 	
 	//CREACION APLICACION TWITTER CON SU ACCESS TOKEN
 	static Twitter twitter;
 	AccessToken at=new AccessToken("580554594-OgfCOpqvpxran6qlAtaCa7CMiFlDIj8Yu11Pm0YW","WxSy9Tck4dtekdnj4QEMHTAibvaFZVqe087WXiwQcvnTF");
 
-	private TwitterStreaming() {
-		this.twitterStream = new TwitterStreamFactory().getInstance();
+	public TwitterStreaming() {
+		this.configurationBuilder.setOAuthConsumerKey(consumerKey)
+	    .setOAuthConsumerSecret(consumerSecret)
+	    .setOAuthAccessToken(accessToken)
+	    .setOAuthAccessTokenSecret(accessTokenSecret);
+		this.twitterStream = new TwitterStreamFactory(configurationBuilder.build()).getInstance();
 		this.keywords = new HashSet<>();
 		loadKeywords();
 	}
@@ -60,7 +72,7 @@ public class TwitterStreaming {
 			e.printStackTrace();
 		}
 	}
-	
+	/*
 	private static List<DBObject> getTweets() {
 		List<DBObject> documents=new ArrayList<>();
 				
@@ -245,10 +257,10 @@ public class TwitterStreaming {
 		return idEncontrados;
 	}
 	
-	
+	*/
 	
 
-	private void init() {
+	public void init() {
 		MongoConection mc = new MongoConection();
 		MongoCollection<Document> collection = mc.ConectarMongo();
 
@@ -278,28 +290,31 @@ public class TwitterStreaming {
 			@Override
 			public void onStatus(Status status)
 			{
+				if (!status.isRetweet()){
+					mc.agregarDocumento(collection, status);
+					System.out.println(status.getId());
+					System.out.println(status.getText());
 
-				try
-				{
-
-					if (status.getLang().equals("es") &&
-							(status.getUser().getLocation().contains("Chile")
-									|| status.getUser().getLocation().contains("CL")
-									|| status.getUser().getLocation().contains("CHL"))) {
-						mc.agregarDocumento(collection, status);
-						System.out.println(status.getId());
-						System.out.println(status.getText());
 					}
-				}catch (NullPointerException e){System.out.println("Excepción NullPointerException");}
-			}
+				}
+
+			
+				
 		};
 
 		FilterQuery fq = new FilterQuery();
+		fq.language(new String[]{"es"});
+		fq.count(0);
 
 		fq.track(keywords.toArray(new String[0]));
 
 		this.twitterStream.addListener(listener);
 		this.twitterStream.filter(fq);
+		try{
+			Thread.sleep(20000);
+		}catch(InterruptedException e){System.out.println(e);}
+		
+		this.twitterStream.shutdown();
 
 	}
 	/*

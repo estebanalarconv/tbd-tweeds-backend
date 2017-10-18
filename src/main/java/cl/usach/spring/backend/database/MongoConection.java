@@ -32,19 +32,24 @@ public class MongoConection {
 	      	    
 	}
 	
-	public void agregarDocumento(MongoCollection<Document> collection, Status statusTweet){
-	   
+	public void agregarDocumento(MongoCollection<Document> collection, Status status){
+		   
 		 //Ejemplo para agregar datos
-	      Document document = new Document("id", statusTweet.getId())
-				  .append("text", statusTweet.getText())
-				  .append("user", statusTweet.getUser())
-				  .append("retweets",statusTweet.getRetweetCount())
-				  .append("geolocation", statusTweet.getPlace())
-				  .append("likes",statusTweet.getFavoriteCount())
-				  .append("created_at",statusTweet.getCreatedAt());
-
-	      collection.insertOne(document); 	   
-		
+	      Document document = new Document("id", status.getId()) 
+	      .append("text", status.getText())
+	      .append("user_id", status.getUser().getId())
+	      .append("user_name", status.getUser().getName())
+	      .append("user_nickname", status.getUser().getScreenName())
+		  .append("retweets",status.getRetweetCount())
+		  .append("likes",status.getFavoriteCount())
+		  .append("created_at",status.getCreatedAt());
+	      
+	      if (status.getPlace() != null){
+	    	  document.append("pais", status.getPlace().getCountry())
+	    	  .append("lugar", status.getPlace().getName());
+	      }
+	      
+	      collection.insertOne(document); 
 	}
 	
 	public void mostrarColeccion(MongoCollection<Document> collection){
