@@ -1,10 +1,8 @@
 package cl.usach.spring.backend.rest;
 
 
-import cl.usach.spring.backend.entities.Keyword;
 import cl.usach.spring.backend.entities.Statistic;
 import cl.usach.spring.backend.entities.Topic;
-import cl.usach.spring.backend.repository.KeywordRepository;
 import cl.usach.spring.backend.repository.StatisticRepository;
 import cl.usach.spring.backend.repository.TopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +21,6 @@ public class TopicService {
     private TopicRepository topicRepository;
     @Autowired
     private StatisticRepository statisticRepository;
-    @Autowired
-    private KeywordRepository keywordRepository;
 
     @CrossOrigin
     @RequestMapping(method = RequestMethod.GET)
@@ -34,18 +30,7 @@ public class TopicService {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Topic findOne(@PathVariable("id") Integer id){return this.topicRepository.findOne(id);}
-
-    @RequestMapping(value = "/{id}/keywords", method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseEntity<List<Keyword>> getKeywords(@PathVariable("id") Integer id){
-        if (topicRepository.exists(id)){
-            List<Keyword> keywords = topicRepository.findOne(id).getKeywords();
-            return new ResponseEntity<List<Keyword>>(keywords, HttpStatus.OK);
-        }else{
-            return new ResponseEntity<List<Keyword>>(HttpStatus.NOT_FOUND);
-        }
-    }
-
+    
     @RequestMapping(value = "/{id}/statistics", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<Statistic>> getStatistics(@PathVariable("id") Integer id){

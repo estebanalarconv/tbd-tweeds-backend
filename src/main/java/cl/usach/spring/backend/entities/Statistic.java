@@ -17,42 +17,31 @@ public class Statistic {
     @Column(name = "statistic_id", unique = true, nullable = false)
     private int statisticId;
 
-    @Column(name = "value",nullable = false)
-    private int value;
+    @Column(name = "statistic_name",nullable = false)
+    private String statisticName;
 
-    @Column(name = "date", nullable = false)
-    private Timestamp date;
+    @Column(name = "description", nullable = false)
+    private String description;
 
-    @OneToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "statistic")
     private List<User> users;
 
-    @ManyToMany
     @JsonIgnore
     @JoinTable(name = "statistic_topic",
             joinColumns=@JoinColumn(name="statistic_id", referencedColumnName="statistic_id"),
             inverseJoinColumns=@JoinColumn(name="topic_id", referencedColumnName="topic_id"))
+    @ManyToMany
     private List<Topic> topics;
+
+
+
+    @OneToMany(mappedBy = "statistic")
+    private List<StatisticTopic> statisticTopics;
 
     public int getStatisticId() { return this.statisticId;}
 
     public void setStatisticId(int statisticId) {
         this.statisticId = statisticId;
-    }
-
-    public int getValue() {
-        return this.value;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
-    }
-
-    public Timestamp getDate() {
-        return this.date;
-    }
-
-    public void setDate(Timestamp date) {
-        this.date = date;
     }
 
     public List<User> getUsers() {
@@ -69,5 +58,28 @@ public class Statistic {
 
     public void setTopics(List<Topic> topics) {
         this.topics = topics;
+    }
+
+    public String getStatisticName() {
+        return this.statisticName;
+    }
+
+    public void setStatisticName(String name) {
+        this.statisticName = name;
+    }
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<StatisticTopic> getStatisticTopics() {
+        return statisticTopics;
+    }
+
+    public void setStatisticTopics(List<StatisticTopic> statisticTopics) {
+        this.statisticTopics = statisticTopics;
     }
 }

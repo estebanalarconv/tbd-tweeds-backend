@@ -46,9 +46,11 @@ public class StatisticService {
         }
     }
 
+
+
     @RequestMapping(value = "/{id}/users", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<List<User>> getUser(@PathVariable("id") Integer id){
+    public ResponseEntity<List<User>> getUsers(@PathVariable("id") Integer id){
         if (statisticRepository.exists(id)){
             List<User> users = statisticRepository.findOne(id).getUsers();
             return new ResponseEntity<List<User>>(users, HttpStatus.OK);

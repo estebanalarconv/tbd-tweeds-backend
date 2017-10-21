@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "topics")
-//@NamedQuery(name = "Topic.findAll", query = "SELECT to FROM Topic to")
+//@NamedQuery(name = "Topic.findAll", query = "SELECT t FROM topics to")
 public class Topic {
 
     @Id
@@ -22,11 +22,8 @@ public class Topic {
     @JsonIgnore
     private List<Statistic> statistics;
 
-
-
-    @ManyToMany(mappedBy = "topics")
-    @JsonIgnore
-    private List<Keyword> keywords;
+    @OneToMany(mappedBy = "topic")
+    private List<StatisticTopic> statisticTopics;
 
     public int getTopicId() {
         return this.topicId;
@@ -52,11 +49,11 @@ public class Topic {
         this.statistics = statistics;
     }
 
-    public List<Keyword> getKeywords() {
-        return this.keywords;
+    public List<StatisticTopic> getStatisticTopics() {
+        return statisticTopics;
     }
 
-    public void setKeywords(List<Keyword> keywords) {
-        this.keywords = keywords;
+    public void setStatisticTopics(List<StatisticTopic> statisticTopics) {
+        this.statisticTopics = statisticTopics;
     }
 }

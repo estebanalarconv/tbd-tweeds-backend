@@ -26,9 +26,7 @@ public class User {
     @JoinColumn(name="statistic_id", referencedColumnName = "statistic_id")
     private Statistic statistic;
 
-
-
-    @OneToMany(mappedBy = "tweets")
+    @OneToMany(mappedBy = "user")
     private List<Tweet> tweets;
 
     public int getUserId() {
