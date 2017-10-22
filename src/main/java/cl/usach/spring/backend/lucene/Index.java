@@ -52,16 +52,16 @@ public class Index {
 		      //Getting the iterator 
 		      //Iterator it = iterDoc.iterator(); 
 		      String text;
+		      String id;
 		      while (cursor.hasNext()) {
 		    	  org.apache.lucene.document.Document lDocument = new org.apache.lucene.document.Document();
 		    	  DBObject o = (DBObject) cursor.next();
 		    	  text = (String) o.get("text");
+		    	  id=o.get("id").toString();
 		         System.out.println(text);
 		    	  lDocument.add(new Field("fieldname", text, TextField.TYPE_STORED));
-		    	  lDocument.add(new StringField("text", text, Field.Store.YES));
-		    	  text=o.get("id").toString();
-		    	  lDocument.add(new StringField("id", text, Field.Store.YES));
-
+		    	  lDocument.add(new StringField("text", text, Field.Store.YES));	    	  
+		    	  lDocument.add(new StringField("id", id, Field.Store.YES));
 		    	 
 		    	  iwriter.addDocument(lDocument);
 		      }

@@ -32,12 +32,10 @@ public class Search {
 				DirectoryReader ireader = DirectoryReader.open(directory);
 				IndexSearcher isearcher = new IndexSearcher(ireader);
 				
-				//palabras a buscar dentro del indice
-				String textToSearch = word;
 				
 				//crear consulta
 				QueryParser parser = new QueryParser("fieldname", new StandardAnalyzer());
-				Query query = parser.parse(textToSearch);
+				Query query = parser.parse(word);
 				
 				//realizamos busqueda
 				TopDocs result=isearcher.search(query,100);
@@ -50,7 +48,7 @@ public class Search {
 	                    Document doc = isearcher.doc(docId);
 	                    retorno.add(doc.get("id"));
 	                 }
-	    			System.out.println("La palabra"+textToSearch+"esta en"+hits.length+"documentos");
+	    			System.out.println("La palabra "+word+" esta en"+hits.length+"documentos");
 	
 	            }
 				
