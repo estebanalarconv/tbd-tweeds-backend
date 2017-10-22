@@ -108,7 +108,9 @@ public class Search {
 							Search search = new Search();
 							idSearch=search.SearchTweets(palabrasMedicina.get(t));
 							for (int tt=0;tt<idSearch.size();tt++) {
-								idEncontrados.add(idSearch.get(tt));
+								if( idEncontrados.contains(idSearch.get(tt))!=true ) {
+									idEncontrados.add(idSearch.get(tt));
+								}
 							}
 						}
 				
@@ -144,7 +146,9 @@ public class Search {
 						Search search = new Search();
 						idSearch=search.SearchTweets(palabrasMedicina.get(t));
 						for (int tt=0;tt<idSearch.size();tt++) {
-							idEncontrados.add(idSearch.get(tt));
+							if( idEncontrados.contains(idSearch.get(tt))!=true ) {
+								idEncontrados.add(idSearch.get(tt));
+							}
 						}
 					}
 			
@@ -209,7 +213,9 @@ public class Search {
 						Search search = new Search();
 						idSearch=search.SearchTweets(palabrasMedicina.get(t));
 						for (int tt=0;tt<idSearch.size();tt++) {
-							idEncontrados.add(idSearch.get(tt));
+							if( idEncontrados.contains(idSearch.get(tt))!=true ) {
+								idEncontrados.add(idSearch.get(tt));
+							}
 						}
 					}
 			

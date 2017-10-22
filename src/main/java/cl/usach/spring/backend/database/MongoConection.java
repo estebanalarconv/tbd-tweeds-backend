@@ -101,5 +101,24 @@ public class MongoConection {
 	    
 		return retorno;
 	}
+	
+	public List<DBObject> findManyTweetData(List<String> ids) {
+		
+        MongoClient mongo = new MongoClient("localhost" , 27017 );
+	    DB database=mongo.getDB("tbd1");
+	    DBCollection collection=database.getCollection("tbd1ex");
+	    List<DBObject> retorno=new ArrayList<>();
+	    for(int i=0;i<ids.size();i++) {
+	    	DBObject query = new BasicDBObject("_id",new ObjectId(ids.get(i)));
+		    DBCursor cursor = collection.find(query);
+		    retorno.add(cursor.one());
+	    }
+	    //mongo.close();
+	    //DBObject jo=cursor.one();
+	    //System.out.println((String) cursor.one().get("text"));
+	    //return cursor.one();
+	    return retorno;
+	    
+	}
 
 }

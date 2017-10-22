@@ -72,6 +72,62 @@ public class TwitterStreaming {
 			e.printStackTrace();
 		}
 	}
+	
+public static int countTweetsBy(String categoria, String filter, String value) {
+		
+		//SE INDEXAN LOS TWEETS
+		Index index = new Index();
+		index.IndexarTweets();
+		//SE BUSCAN LOS TWEETS RESPECTIVOS A LA MEDICINA
+		Search search = new Search();
+		List<String> tweets=new ArrayList<>();
+		if(categoria=="medicina") {
+			tweets=search.getMedicalTweets();
+		}
+		if(categoria=="legalizacion") {
+			tweets=search.getLegalTweets();
+		}
+		if(categoria=="recreativo") {
+			tweets=search.getRecreativeTweets();
+		}
+		
+		//INFORMACION DE LOS TWEETS TRAIDOS DESDE MONGO
+		List<DBObject> tweetsFound=new ArrayList<>();
+		MongoConection mc=new MongoConection();
+		
+		tweetsFound=mc.findManyTweetData(tweets);
+		
+		//TWEETS CORRESPONDIENTES A LA REGION
+		List<DBObject> tweetsRegion=new ArrayList<>();
+		
+		/*System.out.println(tweets.size());
+		System.out.println(tweetsFound.get(0));
+		System.out.println(tweetsFound.get(1));
+		System.out.println(tweetsFound.get(2));
+		System.out.println(tweetsFound.get(3));
+		System.out.println(tweetsFound.size());*/
+		for(int b=0;b<tweetsFound.size();b++) {
+			if(filter.equals("region")) {
+				int region=Integer.parseInt(value);
+				if(tweetsFound.get(b).get("region").equals(region)) {
+					//System.out.println("asdasdasd  "+tweetsFound.get(b).get("_id")+"   "+tweetsFound.get(b).get("region")+"   "+tweetsFound.get(b).get("TimeStamp"));
+					tweetsRegion.add(tweetsFound.get(b));
+				}
+			}
+			if(filter.equals("fecha")) {
+				//int region=Integer.parseInt(value);
+				if(tweetsFound.get(b).get("TimeStamp").toString().contains(value)) {
+					//System.out.println("asdasdasd  "+tweetsFound.get(b).get("_id")+"   "+tweetsFound.get(b).get("region")+"   "+tweetsFound.get(b).get("TimeStamp"));
+					tweetsRegion.add(tweetsFound.get(b));
+				}
+			}
+			
+		}
+		//System.out.println("Tweets encontados para filtro: "+filter+"  de valor: "+value+" en categoria: "+categoria+" son: "+tweetsRegion.size());
+		return tweetsRegion.size();
+	}
+	
+	
 	/*
 	private static List<DBObject> getTweets() {
 		List<DBObject> documents=new ArrayList<>();
