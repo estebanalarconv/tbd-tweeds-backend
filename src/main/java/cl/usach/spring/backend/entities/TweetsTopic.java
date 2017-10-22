@@ -42,7 +42,7 @@ public class TweetsTopic {
 		return this.topicName;
 	}
 
-	public void setTopicName(int topicName) {
+	public void setTopicName(String topicName) {
 		this.topicName = topicName;
 	}
 	
