@@ -1,6 +1,5 @@
 package cl.usach.spring.backend.repository;
 
-import cl.usach.spring.backend.entities.Statistic;
 import cl.usach.spring.backend.entities.StatisticTopic;
 import org.springframework.data.repository.PagingAndSortingRepository;
 

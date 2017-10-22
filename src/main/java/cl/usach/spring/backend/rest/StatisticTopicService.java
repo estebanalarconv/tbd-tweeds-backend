@@ -7,6 +7,7 @@ import cl.usach.spring.backend.repository.StatisticRepository;
 import cl.usach.spring.backend.repository.StatisticTopicRepository;
 import cl.usach.spring.backend.repository.TopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -60,5 +61,7 @@ public class StatisticTopicService {
                 }
             }
         }
+
+        return new ResponseEntity<StatisticTopic>(HttpStatus.NOT_FOUND);
     }
 }
