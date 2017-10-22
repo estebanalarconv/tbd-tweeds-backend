@@ -1,10 +1,5 @@
 package cl.usach.spring.backend.entities;
 
-import cl.usach.spring.backend.lucene.Search;
-import cl.usach.spring.backend.repository.TweetsTopicRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,8 +11,9 @@ import java.sql.Timestamp;
 public class TweetsTopic {
 	private static final long serialVersionUID = 1L;
 
-	@Autowired
-	private TweetsTopicRepository tweetsTopicRepository;
+	/*@Autowired
+	private TweetsTopicRepository tweetsTopicRepository;*/
+
 	@Id
 	@Column(name="id", unique=true, nullable=false)
 	private int tweetsTopicId;
@@ -64,7 +60,7 @@ public class TweetsTopic {
 		this.date = date;
 	}
 
-	public void updateTweets()
+	/*public void updateTweets()
 	{
 		//id = 1 MEDICINAL
 		//id = 2 RECREACIONAL
@@ -82,5 +78,5 @@ public class TweetsTopic {
 		tweetsTopicRepository.save(tweetsTopicMedical);
 		tweetsTopicRepository.save(tweetsTopicLegal);
 		tweetsTopicRepository.save(tweetsTopicRecreacional);
-	}
+	}*/
 }
