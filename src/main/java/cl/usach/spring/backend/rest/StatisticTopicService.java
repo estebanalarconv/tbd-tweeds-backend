@@ -9,6 +9,9 @@ import cl.usach.spring.backend.repository.TopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
 @RequestMapping("/st")
 public class StatisticTopicService {
@@ -37,10 +40,25 @@ public class StatisticTopicService {
 
     //Tweets: statistic_id = 1.
     //Aprob/Desaprob: statistic_id = 2.
-    @RequestMapping(value = "tweets/topics/{topic_id}/", method = RequestMethod.GET)
+    @RequestMapping(value = "{stat_id}/topics/{topic_id}/", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<StatisticTopic> findValue(@PathVariable("topic_id") Integer id)
+    public ResponseEntity<StatisticTopic> findValue(@PathVariable("stat_id") int stat_id, @PathVariable("topic_id") int topic_id)
     {
-        
+        if (statisticRepository.exists(stat_id))
+        {
+            List<StatisticTopic> st = statisticRepository.findOne(stat_id).getStatisticTopics();
+
+            for (StatisticTopic statTopic: st)
+            {
+                if (statTopic.getTopic().getTopicId()==(topic_id))
+                {
+                    return new ResponseEntity<StatisticTopic>(statTopic, HttpStatus.OK);
+                }
+                else
+                {
+                    return new ResponseEntity<StatisticTopic>(HttpStatus.NOT_FOUND);
+                }
+            }
+        }
     }
 }
