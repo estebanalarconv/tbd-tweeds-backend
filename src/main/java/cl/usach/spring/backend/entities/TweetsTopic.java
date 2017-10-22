@@ -18,15 +18,17 @@ public class TweetsTopic {
 	@Column(name="id", unique=true, nullable=false)
 	private int tweetsTopicId;
 
-	@Column(name="topic_id", nullable=false)
-	private int topicId;
+	@Column(name="topic_name", nullable=false)
+	private int topicName;
 
-	@Column(name="DATE", nullable=false)
+	@Column(name="date", nullable=false)
 	private Timestamp date;
 	
-	@Column(name="VALUE", nullable=false)
+	@Column(name="value", nullable=false)
 	private int value;
 	
+	@Column(name="description",nullable = false)
+	private String description;
 
 	public int getTweetsTopicId() {
 		return this.tweetsTopicId;
@@ -36,12 +38,12 @@ public class TweetsTopic {
 		this.tweetsTopicId = tweetsTopicId;
 	}
 
-	public int getTopicId() {
-		return this.topicId;
+	public int getTopicName() {
+		return topicName;
 	}
 
-	public void setTopicId(int topicId) {
-		this.topicId = topicId;
+	public void setTopicName(int topicName) {
+		this.topicName = topicName;
 	}
 	
 	public void setValue(int value) {
@@ -58,6 +60,14 @@ public class TweetsTopic {
 
 	public void setDate(Timestamp date) {
 		this.date = date;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	/*public void updateTweets()
