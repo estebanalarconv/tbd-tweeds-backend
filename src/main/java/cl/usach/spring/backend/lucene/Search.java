@@ -216,4 +216,20 @@ public class Search {
 			
 			return idEncontrados;
 		}
+		
+		public int totalTweetsMedical() {
+			List<String> totales=new ArrayList<>();
+			totales=this.getMedicalTweets();
+			return totales.size();
+		}
+		public int totalTweetsRecreativos() {
+			List<String> totales=new ArrayList<>();
+			totales=this.getRecreativeTweets();
+			return totales.size();
+		}
+		public int totalTweetsLegal() {
+			List<String> totales=new ArrayList<>();
+			totales=this.getLegalTweets();
+			return totales.size();
+		}
 }
