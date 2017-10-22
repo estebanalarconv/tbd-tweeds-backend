@@ -106,8 +106,6 @@ public class Search {
 						List<String> idEncontrados=new ArrayList<>();
 						List<String> idSearch=new ArrayList<>();
 						
-						Index index = new Index();
-						index.IndexarTweets();	
 						for (int t=0;t<palabrasMedicina.size();t++) {
 							Search search = new Search();
 							idSearch=search.SearchTweets(palabrasMedicina.get(t));
@@ -143,9 +141,7 @@ public class Search {
 					
 					List<String> idEncontrados=new ArrayList<>();
 					List<String> idSearch=new ArrayList<>();
-					
-					Index index = new Index();
-					index.IndexarTweets();	
+	
 					for (int t=0;t<palabrasMedicina.size();t++) {
 						Search search = new Search();
 						idSearch=search.SearchTweets(palabrasMedicina.get(t));
@@ -211,8 +207,6 @@ public class Search {
 					List<String> idEncontrados=new ArrayList<>();
 					List<String> idSearch=new ArrayList<>();
 					
-					Index index = new Index();
-					index.IndexarTweets();	
 					for (int t=0;t<palabrasMedicina.size();t++) {
 						Search search = new Search();
 						idSearch=search.SearchTweets(palabrasMedicina.get(t));

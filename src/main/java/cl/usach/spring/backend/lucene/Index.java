@@ -10,6 +10,7 @@ import org.apache.lucene.document.StringField;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.index.IndexWriterConfig.OpenMode;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.RAMDirectory;
@@ -33,7 +34,7 @@ public class Index {
 		
 		try{
 			Analyzer analyzer = new StandardAnalyzer();
-			IndexWriterConfig config = new IndexWriterConfig(analyzer);
+			IndexWriterConfig config = new IndexWriterConfig(analyzer).setOpenMode(OpenMode.CREATE);
 			Directory directory = FSDirectory.open(Paths.get("/tmp/testindex"));
 			//Directory directory = new RAMDirectory();
 			
@@ -58,13 +59,13 @@ public class Index {
 		         System.out.println(text);
 		    	  lDocument.add(new Field("fieldname", text, TextField.TYPE_STORED));
 		    	  lDocument.add(new StringField("text", text, Field.Store.YES));
-		    	  text=o.get("_id").toString();
+		    	  text=o.get("id").toString();
 		    	  lDocument.add(new StringField("id", text, Field.Store.YES));
 
-		    	  
+		    	 
 		    	  iwriter.addDocument(lDocument);
 		      }
-		      
+		
 		iwriter.close();
 		}catch (Exception ex){
 			System.out.println(ex);
