@@ -19,14 +19,14 @@ public class TweetsTopic {
 	private int tweetsTopicId;
 
 	@Column(name="topic_name", nullable=false)
-	private int topicName;
+	private String topicName;
 
 	@Column(name="date", nullable=false)
 	private Timestamp date;
 	
 	@Column(name="value", nullable=false)
 	private int value;
-	
+
 	@Column(name="description",nullable = false)
 	private String description;
 
@@ -38,8 +38,8 @@ public class TweetsTopic {
 		this.tweetsTopicId = tweetsTopicId;
 	}
 
-	public int getTopicName() {
-		return topicName;
+	public String getTopicName() {
+		return this.topicName;
 	}
 
 	public void setTopicName(int topicName) {
