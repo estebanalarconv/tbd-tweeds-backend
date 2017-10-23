@@ -73,7 +73,7 @@ public class TwitterStreaming {
 		}
 	}
 	
-public static int countTweetsBy(String categoria, String filter, String value) {
+	public static int countTweetsBy(String categoria, String filter, String value) {
 		
 		//SE INDEXAN LOS TWEETS
 		Index index = new Index();
@@ -346,10 +346,10 @@ public static int countTweetsBy(String categoria, String filter, String value) {
 			@Override
 			public void onStatus(Status status)
 			{
-				if (!status.isRetweet()){
+				if (!status.isRetweet() && status.getLang().equals("es")){
 					mc.agregarDocumento(collection, status);
-					System.out.println(status.getId());
-					System.out.println(status.getText());
+					//System.out.println(status.getId());
+					//System.out.println(status.getText());
 
 					}
 				}

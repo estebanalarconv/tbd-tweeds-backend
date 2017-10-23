@@ -1,23 +1,16 @@
 package cl.usach.spring.backend.database;
 
-import com.mongodb.client.MongoDatabase;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
-import com.mongodb.MongoClient;
+import com.mongodb.*;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import org.bson.Document;
+import org.bson.types.ObjectId;
+import twitter4j.Status;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import org.bson.Document;
-import org.bson.types.ObjectId;
-
-import twitter4j.Status;
 
 
 public class MongoConection {
@@ -40,7 +33,6 @@ public class MongoConection {
 	     return collection;
 	      	    
 	}
-	
 	public void agregarDocumento(MongoCollection<Document> collection, Status status){
 		   
 		 //Ejemplo para agregar datos
@@ -120,5 +112,6 @@ public class MongoConection {
 	    return retorno;
 	    
 	}
+
 
 }

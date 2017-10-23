@@ -1,8 +1,6 @@
 package cl.usach.spring.backend.lucene;
 
-import java.nio.file.Paths;
-import java.util.Iterator;
-
+import com.mongodb.*;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Field;
@@ -13,18 +11,8 @@ import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.IndexWriterConfig.OpenMode;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
-import org.apache.lucene.store.RAMDirectory;
-import org.bson.Document;
 
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
-import com.mongodb.MongoClient;
-import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoCollection;
-
-import cl.usach.spring.backend.database.MongoConection;
+import java.nio.file.Paths;
 
 
 
@@ -53,18 +41,19 @@ public class Index {
 		      //Iterator it = iterDoc.iterator(); 
 		      String text;
 		      String id;
-		      while (cursor.hasNext()) {
-		    	  org.apache.lucene.document.Document lDocument = new org.apache.lucene.document.Document();
-		    	  DBObject o = (DBObject) cursor.next();
-		    	  text = (String) o.get("text");
-		    	  id=o.get("id").toString();
-		         System.out.println(text);
-		    	  lDocument.add(new Field("fieldname", text, TextField.TYPE_STORED));
-		    	  lDocument.add(new StringField("text", text, Field.Store.YES));	    	  
-		    	  lDocument.add(new StringField("id", id, Field.Store.YES));
+			while (cursor.hasNext()){
+				org.apache.lucene.document.Document lDocument = new org.apache.lucene.document.Document();
+				DBObject o = (DBObject) cursor.next();
+				text = (String) o.get("text");
+				id= o.get("id").toString();
+				//System.out.println(text);
+				lDocument.add(new Field("fieldname",text, TextField.TYPE_STORED));
+				lDocument.add(new StringField("id", id, Field.Store.YES));
+				lDocument.add(new StringField("text", text, Field.Store.YES));
+
 		    	 
-		    	  iwriter.addDocument(lDocument);
-		      }
+				iwriter.addDocument(lDocument);
+			}
 		
 		iwriter.close();
 		}catch (Exception ex){
@@ -72,4 +61,5 @@ public class Index {
 		}
 
 	}
+
 }

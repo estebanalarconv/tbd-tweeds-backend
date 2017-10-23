@@ -12,7 +12,7 @@ public class TweetsTopic {
 	private static final long serialVersionUID = 1L;
 
 	/*@Autowired
-	private TweetsTopicRepository tweetsTopicRepository;*/
+	public TweetsTopicRepository tweetsTopicRepository;*/
 
 	@Id
 	@Column(name="id", unique=true, nullable=false)
