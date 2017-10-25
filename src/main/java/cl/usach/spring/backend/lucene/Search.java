@@ -17,6 +17,40 @@ import java.util.List;
 
 
 public class Search {
+	
+	
+	public String SearchTweetsById(String id){
+		String tweet=null;
+		try{
+			
+			//Ubicacion del indice
+			Directory directory = FSDirectory.open(Paths.get("/tmp/testindex"));
+			
+			//crear buscador
+			DirectoryReader ireader = DirectoryReader.open(directory);
+			IndexSearcher isearcher = new IndexSearcher(ireader);
+
+			
+			//crear consulta
+			QueryParser parser = new QueryParser("id", new StandardAnalyzer());
+			Query query = parser.parse(id);
+			
+			//realizamos busqueda
+			TopDocs result=isearcher.search(query,2000);
+			ScoreDoc[] hits = result.scoreDocs;
+			if(hits.length!=0){
+            	for(int i=0;i<hits.length;i++){
+                    Document doc = isearcher.doc(hits[i].doc);	                   
+                    tweet=doc.get("text");
+                    System.out.println(tweet);
+            	}	
+            }			
+		}catch (Exception ex){
+			System.out.println("Error");
+			return null;
+		}
+		return tweet;
+	}
 
 	//LA FUNCION BUSCA LOS IDS (ID DADO POR MONGO) DENTRO DE LOS TWEETS DE LA BDMONGO SEGUN LA
 		//PALABRA word
