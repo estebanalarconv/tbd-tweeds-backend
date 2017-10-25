@@ -3,13 +3,14 @@ package cl.usach.spring.backend.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name="tweets_topic")
 public class TweetsTopic {
-	private static final long serialVersionUID = 1L;
 
 	/*@Autowired
 	public TweetsTopicRepository tweetsTopicRepository;*/
@@ -18,57 +19,51 @@ public class TweetsTopic {
 	@Column(name="id", unique=true, nullable=false)
 	private int tweetsTopicId;
 
-	@Column(name="topic_name", nullable=false)
-	private String topicName;
-
-	@Column(name="date", nullable=false)
-	private Timestamp date;
-	
 	@Column(name="value", nullable=false)
 	private int value;
-
-	@Column(name="description",nullable = false)
-	private String description;
+	
+	@Column(name="create_at", nullable = false)
+	private Timestamp createAt;
+	
+	@ManyToOne
+    @JoinColumn(name="topic_id", referencedColumnName = "id")
+    private Topic topic;
 
 	public int getTweetsTopicId() {
-		return this.tweetsTopicId;
+		return tweetsTopicId;
 	}
 
-	public void setTweetsTopicIdd(int tweetsTopicId) {
+	public void setTweetsTopicId(int tweetsTopicId) {
 		this.tweetsTopicId = tweetsTopicId;
 	}
 
-	public String getTopicName() {
-		return this.topicName;
+	public int getValue() {
+		return value;
 	}
 
-	public void setTopicName(String topicName) {
-		this.topicName = topicName;
-	}
-	
 	public void setValue(int value) {
 		this.value = value;
 	}
 
-	public int getValue() {
-		return this.value;
+	public Timestamp getCreateAt() {
+		return createAt;
 	}
 
-	public Timestamp getDate() {
-		return this.date;
+	public void setCreateAt(Timestamp createAt) {
+		this.createAt = createAt;
 	}
 
-	public void setDate(Timestamp date) {
-		this.date = date;
+	public Topic getTopic() {
+		return topic;
 	}
 
-	public String getDescription() {
-		return description;
+	public void setTopic(Topic topic) {
+		this.topic = topic;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+	
+
+	
 
 	/*public void updateTweets()
 	{

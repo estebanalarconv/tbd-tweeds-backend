@@ -9,30 +9,29 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-
-import cl.usach.spring.backend.entities.TweetsTopic;
-import cl.usach.spring.backend.repository.TweetsTopicRepository;;
+import cl.usach.spring.backend.entities.ApprovalTopic;
+import cl.usach.spring.backend.repository.ApprovalTopicRepository;
 
 @RestController
-@RequestMapping("/tweets")
-public class TweetsTopicService {
-	public TweetsTopic tweetsTopic;
+@RequestMapping("/approvals")
+public class ApprovalTopicService {
+	public ApprovalTopic approval;
     @Autowired
-    private TweetsTopicRepository tweetsRepository ;
+    private ApprovalTopicRepository approvalRepository;
     
     
 
     @CrossOrigin
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
-	public Iterable<TweetsTopic> getAllUsers() {
-		return tweetsRepository.findAll();
+	public Iterable<ApprovalTopic> getAllUsers() {
+		return approvalRepository.findAll();
 	}
  
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public TweetsTopic findOne(@PathVariable("id") Integer id){return this.tweetsRepository.findOne(id);}
+    public ApprovalTopic findOne(@PathVariable("id") Integer id){return this.approvalRepository.findOne(id);}
     
-    
+	
 }

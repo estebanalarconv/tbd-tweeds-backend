@@ -1,59 +1,95 @@
 package cl.usach.spring.backend.entities;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.List;
 
 import javax.persistence.*;
-import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name = "topics")
 //@NamedQuery(name = "Topic.findAll", query = "SELECT t FROM topics to")
 public class Topic {
-
+	
     @Id
-    @Column(name = "topic_id",unique = true,nullable = false)
-    private int topicId;
+    @Column(name = "id",unique = true,nullable = false)
+    private int id;
 
-    @Column(name = "topic_name",nullable = false)
-    private String topicName;
+    @Column(name = "name",nullable = false)
+    private String name;
+    
 
-    @ManyToMany(cascade = {CascadeType.ALL},mappedBy="topics")
+    
+    @OneToMany(mappedBy = "topic", targetEntity = HistoryTweetsTopic.class)
     @JsonIgnore
-    private List<Statistic> statistics;
+    private List<HistoryTweetsTopic> historyTweetsTopicList;
 
-    @OneToMany(mappedBy = "topic")
-    private List<StatisticTopic> statisticTopics;
 
-    public int getTopicId() {
-        return this.topicId;
-    }
+	@OneToMany(mappedBy = "topic", targetEntity = TweetsTopic.class)
+    @JsonIgnore
+    private List<TweetsTopic> tweetsTopicList;
+	
+	@OneToMany(mappedBy = "topic", targetEntity = TweetsTopic.class)
+    @JsonIgnore
+    private List<ApprovalTopic> approvalTopicList;
+	
+	@OneToMany(mappedBy = "topic", targetEntity = TweetsTopic.class)
+    @JsonIgnore
+    private List<HistoryApprovalTopic> historyApprovalTopicList;
 
-    public void setTopicId(int topicId) {
-        this.topicId = topicId;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public String getTopicName() {
-        return this.topicName;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setTopicName(String topicName) {
-        this.topicName = topicName;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public List<Statistic> getStatistics() {
-        return this.statistics;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setStatistics(List<Statistic> statistics) {
-        this.statistics = statistics;
-    }
+	public List<HistoryTweetsTopic> getHistoryTweetsTopicList() {
+		return historyTweetsTopicList;
+	}
 
-    public List<StatisticTopic> getStatisticTopics() {
-        return statisticTopics;
-    }
+	public void setHistoryTweetsTopicList(List<HistoryTweetsTopic> historyTweetsTopicList) {
+		this.historyTweetsTopicList = historyTweetsTopicList;
+	}
 
-    public void setStatisticTopics(List<StatisticTopic> statisticTopics) {
-        this.statisticTopics = statisticTopics;
-    }
+	public List<TweetsTopic> getTweetsTopicList() {
+		return tweetsTopicList;
+	}
+
+	public void setTweetsTopicList(List<TweetsTopic> tweetsTopicList) {
+		this.tweetsTopicList = tweetsTopicList;
+	}
+
+	public List<ApprovalTopic> getApprovalTopicList() {
+		return approvalTopicList;
+	}
+
+	public void setApprovalTopicList(List<ApprovalTopic> approvalTopicList) {
+		this.approvalTopicList = approvalTopicList;
+	}
+
+	public List<HistoryApprovalTopic> getHistoryApprovalTopicList() {
+		return historyApprovalTopicList;
+	}
+
+	public void setHistoryApprovalTopicList(List<HistoryApprovalTopic> historyApprovalTopicList) {
+		this.historyApprovalTopicList = historyApprovalTopicList;
+	}
+
+
+
+
+	
 }
