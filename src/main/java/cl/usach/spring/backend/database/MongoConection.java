@@ -14,17 +14,18 @@ import java.util.List;
 
 
 public class MongoConection {
+	private MongoClient mClient;
 	
 	
 	public MongoCollection<Document> ConectarMongo(){
 	    // Creating a Mongo client 
-	    MongoClient mongo = new MongoClient( "localhost" , 27017 );
+		mClient = new MongoClient( "localhost" , 27017 );
 	 
 	        
 	    //Accessing the database 
-	    MongoDatabase database = mongo.getDatabase("myTwitter");
+	    MongoDatabase database = mClient.getDatabase("myTwitter");
 	    //database.getCollection("sampleCollection"); 
-	    System.out.println("Collection created successfully"); 
+	    //System.out.println("Collection created successfully"); 
 	     
 	     //Retrieving a collection
 	     MongoCollection<Document> collection = database.getCollection("cTwitter");
@@ -33,6 +34,11 @@ public class MongoConection {
 	     return collection;
 	      	    
 	}
+	
+	public void DesconectarMongo(){
+		mClient.close();
+	}
+	
 	public void agregarDocumento(MongoCollection<Document> collection, Status status){
 		   
 		 //Ejemplo para agregar datos
