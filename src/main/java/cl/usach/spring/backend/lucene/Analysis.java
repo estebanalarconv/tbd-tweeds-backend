@@ -142,14 +142,14 @@ public class Analysis {
 		Map<String, Integer> valorDePalabras;
 		List<String> palabras;
 		if (categoria == 1){//ES TIPO LEGAL
-			valorDePalabras = this.crearMapaPalabrasMedicina();
-			palabras = this.crearListaPalabrasMedicina();
-		}else{ //TIPO MEDICINAL
 			valorDePalabras = this.crearMapaPalabrasLegales();
 			palabras = this.crearListaPalabrasLegales();
+		}else{ //TIPO MEDICINAL
+			valorDePalabras = this.crearMapaPalabrasMedicina();
+			palabras = this.crearListaPalabrasMedicina();
 		}
 		
-		
+		System.out.println("Categoría: "+ categoria+ " Mapa creado...");
 		Map<String, Integer> valorDeTweets = new HashMap<String,Integer>();
 		try{
 			
@@ -169,7 +169,7 @@ public class Analysis {
 				
 				//realizamos busqueda
 				//EN VEZ DE 2000 AGREGAR NUMERO DE TWEETS DE MONGO()
-				TopDocs result=isearcher.search(query,4200);
+				TopDocs result=isearcher.search(query,2000);
 				ScoreDoc[] hits = result.scoreDocs;
 				if(hits.length==0){
 	                System.out.println("No se han encontradon tweets con la palabra "+palabras.get(i));

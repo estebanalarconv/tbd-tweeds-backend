@@ -1,4 +1,4 @@
-package cl.usach.spring.backend.twitter;
+package cl.usach.spring.backend.apis;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -128,8 +128,8 @@ public class TwitterStreaming {
 	}
 	
 	
-	/*
-	private static List<DBObject> getTweets() {
+
+	public static List<DBObject> getTweets() {
 		List<DBObject> documents=new ArrayList<>();
 				
 		twitter=new TwitterFactory().getInstance();
@@ -143,8 +143,8 @@ public class TwitterStreaming {
 		//SE ESTABLECE LENGUAJE DE LOS TWEETS RESCATADOS: "es"
 		q.setLang("es");
 		//SE ESTABLECEN COORDENAS DE LOCALIZACION, EN ESTE CASO SANTIAGO, CON RADIO DE 200KM
-		GeoLocation gl=new GeoLocation(-33.447487, -70.673676);
-		q.setGeoCode(gl, 200, Query.KILOMETERS);
+		//GeoLocation gl=new GeoLocation(-33.447487, -70.673676);
+		//q.setGeoCode(gl, 200, Query.KILOMETERS);
 
 		//q.setSince("2017-10-10");
 		//q.setUntil("2017-01-03");
@@ -195,7 +195,7 @@ public class TwitterStreaming {
 		                document.put("userLocation", localizacionUsuario);
 		                document.put("userName", nombreusuario);
 		                document.put("userNickname", nickname);
-		                document.put("TimeStamp", data);
+		                document.put("create_at", data);
 		                //SE AGREGAN LOS DATOS A LA LISTA
 		                documents.add(document);		                
 		                
@@ -224,13 +224,13 @@ public class TwitterStreaming {
 		return documents;
 	}
 	
-	private int saveTweetsMongo(List<DBObject> documents) {
+	public int saveTweetsMongo(List<DBObject> documents) {
 		int retorno=0;
 		try {
 			MongoClient mongoClient2;
 			mongoClient2 = new MongoClient( "localhost" , 27017 );
-			DB db = mongoClient2.getDB( "tbd1" );
-			DBCollection collection2=db.getCollection("tbd1ex");			
+			DB db = mongoClient2.getDB( "myTwitter" );
+			DBCollection collection2=db.getCollection("cTwitter");
 			for(int d=0;d<documents.size();d++) {
 				collection2.insert(documents.get(d));
 			}
@@ -313,12 +313,12 @@ public class TwitterStreaming {
 		return idEncontrados;
 	}
 	
-	*/
+
 	
 
 	public void init() {
 
-		//System.out.println("RECOLECTANDO TWEETS...");
+		System.out.println("RECOLECTANDO TWEETS...");
 		StatusListener listener = new StatusListener() {
 
 			public void onDeletionNotice(StatusDeletionNotice statusDeletionNotice) {

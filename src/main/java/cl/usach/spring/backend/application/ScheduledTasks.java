@@ -16,10 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import cl.usach.spring.backend.twitter.TwitterStreaming;
+import cl.usach.spring.backend.apis.TwitterStreaming;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -47,7 +46,7 @@ public class ScheduledTasks {
 		 tStreaming.init();	 
 	 }*/
 
-	 //@Scheduled(cron = "*/10 * * * * *")
+	 //@Scheduled(cron = "0 1 * * * *")
 	 public void IndexTweets()
 	 {
 		 System.out.println(">>>>>>Tarea Programada Inicio: Indexando Tweets<<<<<<");
@@ -94,8 +93,8 @@ public class ScheduledTasks {
 		approvalTopicLegal.setTopic(legal);
 		approvalTopicMedical.setApproval(approvalMedicalValues[0]);
 		approvalTopicMedical.setDisapproval(approvalMedicalValues[1]);
-		approvalTopicMedical.setApproval(approvalLegalValues[0]);
-		approvalTopicMedical.setDisapproval(approvalLegalValues[1]);
+		approvalTopicLegal.setApproval(approvalLegalValues[0]);
+		approvalTopicLegal.setDisapproval(approvalLegalValues[1]);
 		approvalTopicRepository.save(approvalTopicMedical);
 		approvalTopicRepository.save(approvalTopicLegal);
 
