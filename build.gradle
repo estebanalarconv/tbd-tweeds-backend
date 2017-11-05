@@ -53,6 +53,8 @@ dependencies {
 	compile 'org.apache.lucene:lucene-core:7.0.0'
 	compile 'org.apache.lucene:lucene-demo:7.0.0'
 	compile 'org.apache.lucene:lucene-analyzers-common:7.0.0'
+	compile 'com.google.maps:google-maps-services:0.2.4'
+	//compile 'org.slf4j:slf4j-nop:1.7.25'
     
     
 }
