@@ -17,6 +17,7 @@ import cl.usach.spring.backend.repository.TweetsTopicRepository;
 public class RelationalDatabase {
 	private Search search = new Search();
 	private TweetsTopic tweetsTopic;
+
 	@Autowired
 	public static TweetsTopicRepository tweetsTopicRepository;
 	

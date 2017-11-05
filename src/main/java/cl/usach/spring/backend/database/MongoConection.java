@@ -30,7 +30,7 @@ public class MongoConection {
 	     //Retrieving a collection
 	     MongoCollection<Document> collection = database.getCollection("cTwitter");
 	     //collection.drop();
-	     System.out.println("Collection sampleCollection selected successfully");
+	     //System.out.println("Collection sampleCollection selected successfully");
 	     return collection;
 	      	    
 	}
@@ -43,13 +43,15 @@ public class MongoConection {
 		   
 		 //Ejemplo para agregar datos
 	      Document document = new Document("id", status.getId()) 
-	      .append("text", status.getText())
-	      .append("user_id", status.getUser().getId())
-	      .append("user_name", status.getUser().getName())
-	      .append("user_nickname", status.getUser().getScreenName())
-		  .append("retweets",status.getRetweetCount())
-		  .append("likes",status.getFavoriteCount())
-		  .append("created_at",status.getCreatedAt());
+	      		.append("text", status.getText())
+	      		.append("user_id", status.getUser().getId())
+	      		.append("user_name", status.getUser().getName())
+	      		.append("user_nickname", status.getUser().getScreenName())
+		  		.append("retweets",status.getRetweetCount())
+		  		.append("likes",status.getFavoriteCount())
+		  		.append("created_at",status.getCreatedAt());
+
+
 	      
 	      if (status.getPlace() != null){
 	    	  document.append("pais", status.getPlace().getCountry())

@@ -1,6 +1,9 @@
 package cl.usach.spring.backend.entities;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.util.Date;
 import java.sql.Timestamp;
 
 @Entity
@@ -18,7 +21,8 @@ public class HistoryApprovalTopic {
     private int disapproval;
     
     @Column(name="create_at", nullable = false)
-	private Timestamp createAt;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date createAt;
    
     @ManyToOne
     @JoinColumn(name="topic_id", referencedColumnName = "id")
@@ -57,11 +61,11 @@ public class HistoryApprovalTopic {
 		this.disapproval = disapproval;
 	}
 
-	public Timestamp getCreateAt() {
+	public Date getCreateAt() {
 		return createAt;
 	}
 
-	public void setCreateAt(Timestamp createAt) {
+	public void setCreateAt(Date createAt) {
 		this.createAt = createAt;
 	}
 

@@ -1,11 +1,14 @@
 package cl.usach.spring.backend.entities;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.Date;
 import java.sql.Timestamp;
 
 @Entity
@@ -23,8 +26,11 @@ public class TweetsTopic {
 	private int value;
 	
 	@Column(name="create_at", nullable = false)
-	private Timestamp createAt;
-	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date createAt;
+
+	@Column(name="topic_name",nullable = false)
+	private String topicName;
 	@ManyToOne
     @JoinColumn(name="topic_id", referencedColumnName = "id")
     private Topic topic;
@@ -45,11 +51,11 @@ public class TweetsTopic {
 		this.value = value;
 	}
 
-	public Timestamp getCreateAt() {
+	public Date getCreateAt() {
 		return createAt;
 	}
 
-	public void setCreateAt(Timestamp createAt) {
+	public void setCreateAt(Date createAt) {
 		this.createAt = createAt;
 	}
 

@@ -90,6 +90,7 @@ public class Analysis {
 		palabras.add("daño");
 		palabras.add("droga NOT no");
 		palabras.add("delincuente*");
+		palabras.add("droga dura");
 		return palabras;	
 	}
 	
@@ -125,7 +126,6 @@ public class Analysis {
 		palabras.add("alivia");
 		palabras.add("cur*");
 		palabras.add("trata*");
-		
 		palabras.add("causa*");
 		palabras.add("provoc*");
 		palabras.add("contra");
@@ -141,12 +141,12 @@ public class Analysis {
 		int valorTemp;
 		Map<String, Integer> valorDePalabras;
 		List<String> palabras;
-		if (categoria == 0){//ES TIPO LEGAL
-			valorDePalabras = this.crearMapaPalabrasLegales();
-			palabras = this.crearListaPalabrasLegales();
-		}else{ //TIPO MEDICINAL
+		if (categoria == 1){//ES TIPO LEGAL
 			valorDePalabras = this.crearMapaPalabrasMedicina();
 			palabras = this.crearListaPalabrasMedicina();
+		}else{ //TIPO MEDICINAL
+			valorDePalabras = this.crearMapaPalabrasLegales();
+			palabras = this.crearListaPalabrasLegales();
 		}
 		
 		
@@ -162,14 +162,14 @@ public class Analysis {
 			
 			
 			//crear consulta
-			QueryParser parser = new QueryParser("fieldname", new StandardAnalyzer());
+			QueryParser parser = new QueryParser("text", new StandardAnalyzer());
 			
 			for (int i=0 ; i<palabras.size() ; i++){
 				org.apache.lucene.search.Query query = parser.parse(palabras.get(i));
 				
 				//realizamos busqueda
 				//EN VEZ DE 2000 AGREGAR NUMERO DE TWEETS DE MONGO()
-				TopDocs result=isearcher.search(query,2000);
+				TopDocs result=isearcher.search(query,4200);
 				ScoreDoc[] hits = result.scoreDocs;
 				if(hits.length==0){
 	                System.out.println("No se han encontradon tweets con la palabra "+palabras.get(i));
@@ -209,7 +209,7 @@ public class Analysis {
 		Iterator it = valorTweets.entrySet().iterator();
 		while(it.hasNext()){
 			Map.Entry e = (Map.Entry)it.next();
-			System.out.println(e.getKey() + "value= " + e.getValue());
+			System.out.println("Key:" + e.getKey().toString() + " value = " + e.getValue());
 			if ((int)e.getValue() > 0){
 				numeroTweets[0]++;
 			}else if((int)e.getValue() < 0){

@@ -317,9 +317,8 @@ public class TwitterStreaming {
 	
 
 	public void init() {
-		MongoConection mc = new MongoConection();
-		MongoCollection<Document> collection = mc.ConectarMongo();
 
+		//System.out.println("RECOLECTANDO TWEETS...");
 		StatusListener listener = new StatusListener() {
 
 			public void onDeletionNotice(StatusDeletionNotice statusDeletionNotice) {
@@ -344,15 +343,35 @@ public class TwitterStreaming {
 			}
 
 			@Override
-			public void onStatus(Status status)
-			{
-				if (!status.isRetweet() && status.getLang().equals("es")){
-					mc.agregarDocumento(collection, status);
-					//System.out.println(status.getId());
-					//System.out.println(status.getText());
+			public void onStatus(Status status) {
+
+				MongoConection mc = new MongoConection();
+				MongoCollection<Document> collection = mc.ConectarMongo();
+				if (!status.isRetweet() && status.getLang().equals("es")) {
+					if (status.getUser().getLocation() != null) {
+						if (status.getUser().getLocation().contains("Chile")
+								|| status.getUser().getLocation().contains("CL")
+								|| status.getUser().getLocation().contains("Chl")
+								|| status.getUser().getLocation().contains("CHL")
+								|| status.getUser().getLocation().contains("CHILE")
+								|| status.getUser().getLocation().contains("serena")
+								|| status.getUser().getLocation().contains("conce")
+								|| status.getUser().getLocation().contains("iquique")
+								|| status.getUser().getLocation().contains("valparaíso")
+								|| status.getUser().getLocation().contains("valpo")
+								|| status.getUser().getLocation().contains("viña")
+								|| status.getUser().getLocation().contains("antofagasta")
+								|| status.getUser().getLocation().contains("valdivia")
+								|| status.getUser().getLocation().contains("temuco"))
+						{
+							System.out.println(">>>>>>>>>Tweet Recibido<<<<<<<<<<<");
+							mc.agregarDocumento(collection, status);
+							//System.out.println("Tweet guardado.");
+						}
 
 					}
 				}
+			}
 
 			
 				
@@ -366,11 +385,11 @@ public class TwitterStreaming {
 
 		this.twitterStream.addListener(listener);
 		this.twitterStream.filter(fq);
-		try{
+		/*try{
 			Thread.sleep(20000);
-		}catch(InterruptedException e){System.out.println(e);}
+		}catch(InterruptedException e){System.out.println(e);}*/
 		
-		this.twitterStream.shutdown();
+		//this.twitterStream.shutdown();
 
 	}
 	/*

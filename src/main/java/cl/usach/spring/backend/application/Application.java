@@ -16,6 +16,9 @@ public class Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
+		ScheduledTasks st = new ScheduledTasks();
+		st.IndexTweets();
+		st.updateApproval();
 		
 	}
 }

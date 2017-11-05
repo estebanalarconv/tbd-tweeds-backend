@@ -36,7 +36,7 @@ public class Search {
 			Query query = parser.parse(id);
 			
 			//realizamos busqueda
-			TopDocs result=isearcher.search(query,2000);
+			TopDocs result=isearcher.search(query,4200);
 			ScoreDoc[] hits = result.scoreDocs;
 			if(hits.length!=0){
             	for(int i=0;i<hits.length;i++){
@@ -68,14 +68,14 @@ public class Search {
 				
 				
 				//crear consulta
-				QueryParser parser = new QueryParser("fieldname", new StandardAnalyzer());
+				QueryParser parser = new QueryParser("text", new StandardAnalyzer());
 				Query query = parser.parse(word);
 				
 				//realizamos busqueda
-				TopDocs result=isearcher.search(query,100);
+				TopDocs result=isearcher.search(query,42299);
 				ScoreDoc[] hits = result.scoreDocs;
 				if(hits.length==0){
-	                System.out.println("No se han encontradon tweets con la palabra "+word);
+	                System.out.println("No se han encontrado tweets con la palabra "+word);
 	            }else{
 	            	for(int i=0;i<hits.length;i++){
 	            		int docId= hits[i].doc;

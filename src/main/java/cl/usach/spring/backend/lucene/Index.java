@@ -47,13 +47,14 @@ public class Index {
 				text = (String) o.get("text");
 				id= o.get("id").toString();
 				//System.out.println(text);
-				lDocument.add(new Field("fieldname",text, TextField.TYPE_STORED));
+				lDocument.add(new Field("text",text, TextField.TYPE_STORED));
 				lDocument.add(new StringField("id", id, Field.Store.YES));
-				lDocument.add(new StringField("text", text, Field.Store.YES));
+				//lDocument.add(new StringField("text", text, Field.Store.YES));
 
 		    	 
 				iwriter.addDocument(lDocument);
 			}
+
 		
 		iwriter.close();
 		}catch (Exception ex){

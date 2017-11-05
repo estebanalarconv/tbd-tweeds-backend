@@ -1,5 +1,9 @@
 package cl.usach.spring.backend.entities;
 
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -23,9 +27,11 @@ public class ApprovalTopic {
     
     @Column(name="disapproval", nullable = false)
     private int disapproval;
-    
+
+
     @Column(name="create_at", nullable = false)
-	private Timestamp create;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date create;
     
     @ManyToOne
     @JoinColumn(name="topic_id", referencedColumnName = "id")
@@ -63,11 +69,11 @@ public class ApprovalTopic {
 		this.disapproval = disapproval;
 	}
 
-	public Timestamp getCreate() {
+	public Date getCreate() {
 		return create;
 	}
 
-	public void setCreate(Timestamp create) {
+	public void setCreate(Date create) {
 		this.create = create;
 	}
 }
