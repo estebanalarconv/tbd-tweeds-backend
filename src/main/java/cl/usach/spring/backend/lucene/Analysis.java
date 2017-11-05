@@ -53,6 +53,7 @@ public class Analysis {
 		valorDePalabras.put("daño",-1);
 		valorDePalabras.put("droga NOT no",-2);
 		valorDePalabras.put("delincuente*",-1);
+		valorDePalabras.put("droga dura", -2);
 		
 		return valorDePalabras;
 	}
@@ -169,7 +170,7 @@ public class Analysis {
 				
 				//realizamos busqueda
 				//EN VEZ DE 2000 AGREGAR NUMERO DE TWEETS DE MONGO()
-				TopDocs result=isearcher.search(query,2000);
+				TopDocs result=isearcher.search(query,4200);
 				ScoreDoc[] hits = result.scoreDocs;
 				if(hits.length==0){
 	                System.out.println("No se han encontradon tweets con la palabra "+palabras.get(i));

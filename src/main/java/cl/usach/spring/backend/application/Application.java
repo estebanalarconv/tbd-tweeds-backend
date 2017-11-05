@@ -28,14 +28,16 @@ public class Application {
 		Analysis analysis = new Analysis();
 		Index index = new Index();
 		index.IndexarTweets();
-		//Map<String, Integer> approvalLegal = analysis.AnalisisSentimientosTweets(1);
-		//System.out.println("Largo Map: " + approvalLegal.size());
+		Map<String, Integer> approvalLegal = analysis.AnalisisSentimientosTweets(1);
+		System.out.println("Largo Map: " + approvalLegal.size());
 		Map<String, Integer> approvalMedical = analysis.AnalisisSentimientosTweets(0);
 		System.out.println("Largo Map 2: " + approvalMedical.size());
 		int approvalMedicalValues[] = analysis.SepararAprobacionDesaprobacion(approvalMedical);
-		//int approvalLegalValues[] = analysis.SepararAprobacionDesaprobacion(approvalLegal);
+		int approvalLegalValues[] = analysis.SepararAprobacionDesaprobacion(approvalLegal);
 		System.out.println("Aprobacion Medicinal"+ approvalMedicalValues[0]);
-		//System.out.println("Aprobacion Legal"+ approvalMedicalValues[0]);
+		System.out.println("Aprobacion Medicinal"+ approvalMedicalValues[1]);
+		System.out.println("Aprobacion Legal"+ approvalLegalValues[0]);
+		System.out.println("Desaprobacion Legal"+ approvalLegalValues[1]);
 		
 	}
 }
