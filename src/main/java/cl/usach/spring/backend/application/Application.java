@@ -24,7 +24,7 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 		/*ScheduledTasks st = new ScheduledTasks();
 		st.IndexTweets();
-		st.updateTopics();*/
+		st.updateTopics();
 		Analysis analysis = new Analysis();
 		Index index = new Index();
 		index.IndexarTweets();
@@ -37,7 +37,7 @@ public class Application {
 		System.out.println("Aprobacion Medicinal"+ approvalMedicalValues[0]);
 		System.out.println("Aprobacion Medicinal"+ approvalMedicalValues[1]);
 		System.out.println("Aprobacion Legal"+ approvalLegalValues[0]);
-		System.out.println("Desaprobacion Legal"+ approvalLegalValues[1]);
+		System.out.println("Desaprobacion Legal"+ approvalLegalValues[1]);*/
 		
 	}
 }

@@ -20,7 +20,8 @@ public class ApprovalTopicService {
     private ApprovalTopicRepository approvalRepository;
     
     
-
+    /*Se obtienen los valores de todas las categorias
+     * */
     @CrossOrigin
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
@@ -28,7 +29,12 @@ public class ApprovalTopicService {
 		return approvalRepository.findAll();
 	}
  
-
+    
+    /*id: 1 -> legal
+      id: 2 -> medicinal
+      Se obtiene valores de aprobacion y desaprobación por categoria
+     */
+   
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public ApprovalTopic findOne(@PathVariable("id") Integer id){return this.approvalRepository.findOne(id);}

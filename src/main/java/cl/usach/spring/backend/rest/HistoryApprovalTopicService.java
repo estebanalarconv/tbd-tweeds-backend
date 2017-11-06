@@ -12,7 +12,7 @@ import cl.usach.spring.backend.repository.HistoryApprovalTopicRepository;
 import cl.usach.spring.backend.entities.HistoryApprovalTopic;
 
 @RestController
-@RequestMapping("/hApprovals")
+@RequestMapping("/h_approvals")
 public class HistoryApprovalTopicService {
 	public HistoryApprovalTopic hApproval;
     @Autowired
@@ -27,9 +27,21 @@ public class HistoryApprovalTopicService {
 		return hApprovalRepository.findAll();
 	}
  
-
+/*
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public HistoryApprovalTopic findOne(@PathVariable("id") Integer id){return this.hApprovalRepository.findOne(id);}
+    public HistoryApprovalTopic findOne(@PathVariable("id") Integer id){
+    	return this.hApprovalRepository.findOne(id);
+    }*/
+    
+    /*Entrega todas las historias del topic_id = id
+     * 1-> legal
+     * 2->medicinal
+     * */
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Iterable<HistoryApprovalTopic> findByTopic(@PathVariable("id") Integer id){
+    	return this.hApprovalRepository.findTitleByTopic(id);
+    }
 	
 }

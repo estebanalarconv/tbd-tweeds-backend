@@ -29,7 +29,7 @@ public class TweetsTopicService {
 		return tweetsRepository.findAll();
 	}
  
-
+    
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public TweetsTopic findOne(@PathVariable("id") Integer id){return this.tweetsRepository.findOne(id);}

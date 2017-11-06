@@ -81,7 +81,7 @@ public class ScheduledTasks {
 		tweetsTopicRepository.save(tweetsTopicRecreational);
 	}*/
 
-	@Scheduled(cron = "*/10 * * * * *")
+	//@Scheduled(cron = "*/10 * * * * *")
 	public void updateApproval()
 	{
 		Map<String, Integer> approvalLegal = analysis.AnalisisSentimientosTweets(1);
