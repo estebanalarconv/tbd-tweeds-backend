@@ -18,6 +18,39 @@ import java.util.List;
 
 public class Search {
 	
+	public String SearchUserById(String id)
+	{
+		String user = null;
+		try{
+			//Ubicacion del indice
+			Directory directory = FSDirectory.open(Paths.get("/tmp/testindex"));
+			
+			//crear buscador
+			DirectoryReader ireader = DirectoryReader.open(directory);
+			IndexSearcher isearcher = new IndexSearcher(ireader);
+
+			
+			//crear consulta
+			QueryParser parser = new QueryParser("id", new StandardAnalyzer());
+			Query query = parser.parse(id);
+			
+			//realizamos busqueda
+			TopDocs result=isearcher.search(query,4200);
+			ScoreDoc[] hits = result.scoreDocs;
+			if(hits.length!=0){
+            	for(int i=0;i<hits.length;i++){
+                    Document doc = isearcher.doc(hits[i].doc);	                   
+                    user=doc.get("text");
+                   // System.out.println(user);
+            	}
+			}
+			return user;
+			
+		}catch (Exception ex){
+			System.out.println("Error");
+			return null;
+		}
+	}
 	
 	public String SearchTweetsById(String id){
 		String tweet=null;
@@ -42,7 +75,7 @@ public class Search {
             	for(int i=0;i<hits.length;i++){
                     Document doc = isearcher.doc(hits[i].doc);	                   
                     tweet=doc.get("text");
-                    System.out.println(tweet);
+                   // System.out.println(tweet);
             	}	
             }			
 		}catch (Exception ex){
@@ -80,7 +113,7 @@ public class Search {
 	            	for(int i=0;i<hits.length;i++){
 	            		int docId= hits[i].doc;
 	                    Document doc = isearcher.doc(docId);
-	                    retorno.add(doc.get("id"));
+	                    retorno.add(doc.get("_id"));
 	                 }
 	    			System.out.println("La palabra "+word+" esta en"+hits.length+"documentos");
 	

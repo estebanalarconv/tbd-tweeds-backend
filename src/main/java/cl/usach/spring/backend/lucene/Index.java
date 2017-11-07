@@ -41,14 +41,17 @@ public class Index {
 		      //Iterator it = iterDoc.iterator(); 
 		      String text;
 		      String id;
+		      String _id;
 			while (cursor.hasNext()){
 				org.apache.lucene.document.Document lDocument = new org.apache.lucene.document.Document();
 				DBObject o = (DBObject) cursor.next();
 				text = (String) o.get("text");
 				id= o.get("id").toString();
+				_id = o.get("_id").toString();
 				//System.out.println(text);
 				lDocument.add(new Field("text",text, TextField.TYPE_STORED));
 				lDocument.add(new StringField("id", id, Field.Store.YES));
+				lDocument.add(new StringField("_id", _id, Field.Store.YES));
 				//lDocument.add(new StringField("text", text, Field.Store.YES));
 
 		    	 

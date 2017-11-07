@@ -89,8 +89,8 @@ public class MongoConection {
 	public List<DBObject> findTweetByRegion (int idRegion){
 		List<DBObject> retorno=new ArrayList();
 		MongoClient mongo = new MongoClient( "localhost" , 27017 );
-	    DB database=mongo.getDB("tbd1");
-	    DBCollection collection=database.getCollection("tbd1ex");
+	    DB database=mongo.getDB("myTwitter");
+	    DBCollection collection=database.getCollection("cTwitter");
 	    DBObject query = new BasicDBObject("region",idRegion);
 	    DBCursor cursor = collection.find(query);
 	    while(cursor.hasNext()) {
@@ -105,8 +105,8 @@ public class MongoConection {
 	public List<DBObject> findManyTweetData(List<String> ids) {
 		
         MongoClient mongo = new MongoClient("localhost" , 27017 );
-	    DB database=mongo.getDB("tbd1");
-	    DBCollection collection=database.getCollection("tbd1ex");
+	    DB database=mongo.getDB("myTwitter");
+	    DBCollection collection=database.getCollection("cTwitter");
 	    List<DBObject> retorno=new ArrayList<>();
 	    for(int i=0;i<ids.size();i++) {
 	    	DBObject query = new BasicDBObject("_id",new ObjectId(ids.get(i)));
