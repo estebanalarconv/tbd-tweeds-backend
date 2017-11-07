@@ -44,6 +44,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
     compile("org.springframework.boot:spring-boot-starter-test")
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.date:spring-data-neo4j:5.0.1.RELEASE")
     runtime("org.springframework.boot:spring-boot-starter-tomcat")
     compile group: 'org.twitter4j', name: 'twitter4j-stream', version: '4.0.5'
 	compile group: 'org.twitter4j', name: 'twitter4j-core', version: '4.0.5'
