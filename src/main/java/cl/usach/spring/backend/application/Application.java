@@ -1,14 +1,15 @@
 package cl.usach.spring.backend.application;
 
+import cl.usach.spring.backend.apis.TwitterStreaming;
 import cl.usach.spring.backend.database.MongoConection;
 import cl.usach.spring.backend.lucene.*;
 
 import cl.usach.spring.backend.repository.TweetsTopicRepository;
-
+/*
 import org.neo4j.driver.v1.AuthTokens;
 import org.neo4j.driver.v1.Driver;
 import org.neo4j.driver.v1.GraphDatabase;
-import org.neo4j.driver.v1.Session;
+import org.neo4j.driver.v1.Session;*/
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -31,6 +32,8 @@ public class Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
+		TwitterStreaming twitter = new TwitterStreaming();
+		twitter.init();
 		/*ScheduledTasks st = new ScheduledTasks();
 		st.IndexTweets();
 		st.updateTopics();
@@ -47,6 +50,8 @@ public class Application {
 		System.out.println("Aprobacion Medicinal"+ approvalMedicalValues[1]);
 		System.out.println("Aprobacion Legal"+ approvalLegalValues[0]);
 		System.out.println("Desaprobacion Legal"+ approvalLegalValues[1]);*/
+		
+		/*
 		ScheduledTasks st = new ScheduledTasks();
 		st.IndexTweets();
   		//st.updateApproval();
@@ -115,7 +120,7 @@ public class Application {
                     + "  create (a)-[r:RRecreativo]->(b)");
         }
         session.close();
-        driver.close();
+        driver.close();*/
 		
 	}
 }
