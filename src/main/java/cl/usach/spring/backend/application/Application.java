@@ -1,6 +1,7 @@
 package cl.usach.spring.backend.application;
 
 import cl.usach.spring.backend.database.MongoConection;
+import cl.usach.spring.backend.database.RelationalDatabase;
 import cl.usach.spring.backend.lucene.*;
 
 import cl.usach.spring.backend.repository.TweetsTopicRepository;
@@ -31,27 +32,12 @@ public class Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
-		/*ScheduledTasks st = new ScheduledTasks();
-		st.IndexTweets();
-		st.updateTopics();
-		Analysis analysis = new Analysis();
 		Index index = new Index();
 		index.IndexarTweets();
-		Map<String, Integer> approvalLegal = analysis.AnalisisSentimientosTweets(1);
-		System.out.println("Largo Map: " + approvalLegal.size());
-		Map<String, Integer> approvalMedical = analysis.AnalisisSentimientosTweets(0);
-		System.out.println("Largo Map 2: " + approvalMedical.size());
-		int approvalMedicalValues[] = analysis.SepararAprobacionDesaprobacion(approvalMedical);
-		int approvalLegalValues[] = analysis.SepararAprobacionDesaprobacion(approvalLegal);
-		System.out.println("Aprobacion Medicinal"+ approvalMedicalValues[0]);
-		System.out.println("Aprobacion Medicinal"+ approvalMedicalValues[1]);
-		System.out.println("Aprobacion Legal"+ approvalLegalValues[0]);
-		System.out.println("Desaprobacion Legal"+ approvalLegalValues[1]);*/
-		ScheduledTasks st = new ScheduledTasks();
-		st.IndexTweets();
+		//ScheduledTasks st = new ScheduledTasks();
+		//st.IndexTweets();
   		//st.updateApproval();
-        
-		Driver driver = GraphDatabase.driver( "bolt://localhost", AuthTokens.basic( "neo4j", "7017" ) );
+		Driver driver = GraphDatabase.driver( "bolt://localhost", AuthTokens.basic( "neo4j", "secret" ) );
         Session session = driver.session();
         //borrar grafos
         session.run("match (a)-[r]->(b) delete r");
@@ -75,7 +61,7 @@ public class Application {
         // Nodos Legalizacion
         for(int i = 0; i < 5; i++)
         {
-        	name = tweets.get(i).get("user_name").toString();
+        	name = tweets.get(i).get("userName").toString();
         	tweet = tweets.get(i).get("text").toString();
         	weight = i;
         	session.run("create (t:Tweet {name:'"+name+"', tweet:'"+tweet+"', peso:'"+i+"'})");
@@ -91,7 +77,7 @@ public class Application {
         
         for(int i = 0; i < 5; i++)
         {
-        	name = tweets.get(i).get("user_name").toString();
+        	name = tweets.get(i).get("userName").toString();
         	tweet = tweets.get(i).get("text").toString();
         	session.run("create (t:Tweet {name:'"+name+"', tweet:'"+tweet+"', peso:'"+i+"'})");
         	session.run("match (a:Tweet) where a.name='"+name+"'"
@@ -100,20 +86,21 @@ public class Application {
         }
 
         //Nodos Recreativos
-        listIds = null;
+        /*listIds = null;
         listIds = luceneSearch.getRecreativeTweets();
         tweets = mc.findManyTweetData(listIds);
+        System.out.println(tweets.get(0).get("_id").toString() +" "+tweets.size());
         
         for(int i = 0; i < 5; i++)
         {
 
-        	name = tweets.get(i).get("user_name").toString();
+        	name = tweets.get(i).get("userName").toString();
         	tweet = tweets.get(i).get("text").toString();
         	session.run("create (t:Tweet {name:'"+name+"', tweet:'"+tweet+"', peso:'"+i+"'})");
         	session.run("match (a:Tweet) where a.name='"+name+"'"
                     + "  match (b:Topic) where b.name='Recreativo' "
                     + "  create (a)-[r:RRecreativo]->(b)");
-        }
+        }*/
         session.close();
         driver.close();
 		

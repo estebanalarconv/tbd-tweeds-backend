@@ -61,7 +61,7 @@ public class ScheduledTasks {
 	 }
 
 	//@Scheduled(cron = "*/10 * * * * *")
-	/*public void updateTopics()
+	public void updateTopics()
 	{
 		System.out.println("[Scheduled Task: Update Tweets topics]");
 		int totalMedicina = search.totalTweetsMedical();
@@ -71,6 +71,8 @@ public class ScheduledTasks {
 		TweetsTopic tweetsTopicLegal = tweetsTopicRepository.findOne(2);
 		TweetsTopic tweetsTopicRecreational = tweetsTopicRepository.findOne(3);
 
+		Topic topicLegal = new Topic();
+		Topic topicMedicina = new Topic();
 		//System.out.println(">>>>>>>>ENCONTRADOS<<<<<<<<");
 		tweetsTopicMedical.setValue(totalMedicina);
 		tweetsTopicLegal.setValue(totalLegal);
@@ -79,7 +81,7 @@ public class ScheduledTasks {
 		tweetsTopicRepository.save(tweetsTopicMedical);
 		tweetsTopicRepository.save(tweetsTopicLegal);
 		tweetsTopicRepository.save(tweetsTopicRecreational);
-	}*/
+	}
 
 	//@Scheduled(cron = "*/10 * * * * *")
 	public void updateApproval()

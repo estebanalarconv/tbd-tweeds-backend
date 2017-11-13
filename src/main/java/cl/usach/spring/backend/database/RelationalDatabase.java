@@ -1,7 +1,10 @@
 package cl.usach.spring.backend.database;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,8 +16,8 @@ import cl.usach.spring.backend.entities.TweetsTopic;
 import cl.usach.spring.backend.lucene.Search;
 import cl.usach.spring.backend.repository.TweetsTopicRepository;
 
-
-public class RelationalDatabase {
+@Component
+public class RelationalDatabase implements ApplicationRunner{
 	private Search search = new Search();
 	private TweetsTopic tweetsTopic;
 
@@ -42,6 +45,10 @@ public class RelationalDatabase {
 		tweetsTopicRepository.save(tweetsTopic);	
 		
 	}
-	
-	
+
+
+	@Override
+	public void run(ApplicationArguments args) throws Exception {
+		ActualizarTweetsPorTopico();
+	}
 }
