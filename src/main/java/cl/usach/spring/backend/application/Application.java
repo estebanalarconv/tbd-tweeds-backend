@@ -32,8 +32,8 @@ public class Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
-		TwitterStreaming twitter = new TwitterStreaming();
-		twitter.init();
+		//TwitterStreaming twitter = new TwitterStreaming();
+		//twitter.init();
 		/*ScheduledTasks st = new ScheduledTasks();
 		st.IndexTweets();
 		st.updateTopics();
