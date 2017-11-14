@@ -320,6 +320,8 @@ public class TwitterStreaming {
 
 		System.out.println("RECOLECTANDO TWEETS...");
 		StatusListener listener = new StatusListener() {
+			MongoConection mc = new MongoConection();
+			MongoCollection<Document> collection = mc.ConectarMongo();
 
 			public void onDeletionNotice(StatusDeletionNotice statusDeletionNotice) {
 				System.out.println("Got a status deletion notice id:" + statusDeletionNotice.getStatusId());
@@ -345,31 +347,10 @@ public class TwitterStreaming {
 			@Override
 			public void onStatus(Status status) {
 
-				MongoConection mc = new MongoConection();
-				MongoCollection<Document> collection = mc.ConectarMongo();
-				if (!status.isRetweet() && status.getLang().equals("es")) {
-					if (status.getUser().getLocation() != null) {
-						if (status.getUser().getLocation().contains("Chile")
-								|| status.getUser().getLocation().contains("CL")
-								|| status.getUser().getLocation().contains("Chl")
-								|| status.getUser().getLocation().contains("CHL")
-								|| status.getUser().getLocation().contains("CHILE")
-								|| status.getUser().getLocation().contains("serena")
-								|| status.getUser().getLocation().contains("conce")
-								|| status.getUser().getLocation().contains("iquique")
-								|| status.getUser().getLocation().contains("valparaíso")
-								|| status.getUser().getLocation().contains("valpo")
-								|| status.getUser().getLocation().contains("viña")
-								|| status.getUser().getLocation().contains("antofagasta")
-								|| status.getUser().getLocation().contains("valdivia")
-								|| status.getUser().getLocation().contains("temuco"))
-						{
-							System.out.println(">>>>>>>>>Tweet Recibido<<<<<<<<<<<");
-							mc.agregarDocumento(collection, status);
-							//System.out.println("Tweet guardado.");
-						}
+				if (!status.isRetweet() && status.getLang().equals("es")) {			
+					mc.agregarDocumento(collection, status);
+					//System.out.println("Tweet guardado.");
 
-					}
 				}
 			}
 

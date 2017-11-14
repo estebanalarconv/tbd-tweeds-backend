@@ -28,7 +28,7 @@ public class MongoConection {
 	    //System.out.println("Collection created successfully"); 
 	     
 	     //Retrieving a collection
-	     MongoCollection<Document> collection = database.getCollection("cTwitter");
+	     MongoCollection<Document> collection = database.getCollection("cTwitterPrueba");
 	     //collection.drop();
 	     //System.out.println("Collection sampleCollection selected successfully");
 	     return collection;
@@ -42,22 +42,28 @@ public class MongoConection {
 	public void agregarDocumento(MongoCollection<Document> collection, Status status){
 		   
 		 //Ejemplo para agregar datos
-	      Document document = new Document("id", status.getId()) 
-	      		.append("text", status.getText())
-	      		.append("user_id", status.getUser().getId())
-	      		.append("user_name", status.getUser().getName())
-	      		.append("user_nickname", status.getUser().getScreenName())
-		  		.append("retweets",status.getRetweetCount())
-		  		.append("likes",status.getFavoriteCount())
-		  		.append("created_at",status.getCreatedAt());
-
-
-	      
+	      Document document = new Document();      
 	      if (status.getPlace() != null){
-	    	  document.append("pais", status.getPlace().getCountry())
-	    	  .append("lugar", status.getPlace().getName());
+	    	  if (status.getPlace().getName().contains("Ch")){
+	    		  document.append("location", status.getPlace().getName());
+	    	  }
+	    	  
+	      }else if (status.getUser().getLocation() != null){
+	    	  if (status.getUser().getLocation().contains("Ch")){
+	    		  document.append("location", status.getUser().getLocation());
+	    	  }	    	  
+	      }else{
+	    	  return;
 	      }
-	      
+	      document.append("id", status.getId()) 
+	      	.append("text", status.getText())
+    		.append("user_id", status.getUser().getId())
+    		.append("user_name", status.getUser().getName())
+    		.append("user_nickname", status.getUser().getScreenName())
+	  		.append("retweets",status.getRetweetCount())
+	  		.append("likes",status.getFavoriteCount())
+	  		.append("followed", status.getUser().getFollowersCount())
+	  		.append("created_at",status.getCreatedAt());
 	      collection.insertOne(document); 
 	}
 	
