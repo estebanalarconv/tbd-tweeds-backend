@@ -37,13 +37,13 @@ public class GoogleMaps {
 		return regiones;
 	}
 	
-	private String identificarRegion(String region){
+	private int identificarRegion(String region){
 		for (int i=0 ; i < 15 ; i++){
 			if(region.indexOf(regiones[i]) != -1){
-				return regiones[i];
+				return i;
 			}
 		}
-		return null;
+		return 15;
 	}
 	
 	/*
@@ -74,29 +74,38 @@ public class GoogleMaps {
 		}
 	}*/
 	
-	public void ObtenerRegion(String localidad){
+	public int ObtenerRegion(String localidad){
 		GeocodingResult[] results;
 		try {
 			results = GeocodingApi.geocode(context,
 				    localidad).await();
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
 			if (results.length != 0){
-				String region = identificarRegion(results[0].addressComponents[3].longName);
-				System.out.println(region);
-				
+				try{
+					int region = identificarRegion(results[0].addressComponents[3].longName);
+					System.out.println(region);
+					return region;
+				}catch (Exception e){
+					return 15;
+				}								
 			}else{
+				
 				System.out.println("NO ENCONTRADA");
+				return 15;
 			}
 			
 		} catch (ApiException e) {
 			System.out.println("no encontrado");
 			e.printStackTrace();
+			return 15;
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return -1;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return -1;
 		}
 	}
 	

@@ -1,5 +1,6 @@
 package cl.usach.spring.backend.application;
 
+import cl.usach.spring.backend.apis.GoogleMaps;
 import cl.usach.spring.backend.apis.TwitterStreaming;
 import cl.usach.spring.backend.database.MongoConection;
 import cl.usach.spring.backend.lucene.*;
@@ -18,6 +19,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 
 import java.util.List;
@@ -32,6 +34,27 @@ public class Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
+		/*
+		Index index = new Index();
+		index.IndexarTweets();
+		Analysis analysis = new Analysis();
+		Map<String, Integer> approvalLegal = analysis.AnalisisSentimientosTweets(1);
+		Map<String, Integer> approvalMedical = analysis.AnalisisSentimientosTweets(0);
+		int approvalMedicalValues[][] = analysis.SepararAprobacionDesaprobacionPorRegion(approvalMedical);
+		int approvalLegalValues[][] = analysis.SepararAprobacionDesaprobacionPorRegion(approvalLegal);*/
+		
+		/*
+		MongoConection mg = new MongoConection();
+		GoogleMaps gmaps = new GoogleMaps();
+		DBCollection coll = mg.ConectarMongo2();
+		String id = "932749707167879169";
+		String location = mg.FindLocationByIdTweet(id, coll);
+		System.out.println("result: "+ location);
+		if (location != null){
+			int result = gmaps.ObtenerRegion(location);
+			System.out.println("region: "+ result);*/
+		
+		
 		//TwitterStreaming twitter = new TwitterStreaming();
 		//twitter.init();
 		/*ScheduledTasks st = new ScheduledTasks();

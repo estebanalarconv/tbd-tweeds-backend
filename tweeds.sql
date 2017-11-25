@@ -90,8 +90,8 @@ VALUES
 ('Región de Magallanes'),
 ('Región Metropolitana'),
 ('Región de Los Ríos'),
-('Región de Valparaíso'),
-('Región de Arica y Parinacota');
+('Región de Arica y Parinacota'),
+('Sin Región');
 
 INSERT INTO approval_topic_by_region (topic_id, region_id, approval, disapproval)
 VALUES

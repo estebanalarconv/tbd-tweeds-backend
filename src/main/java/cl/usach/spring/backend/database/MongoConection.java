@@ -28,11 +28,18 @@ public class MongoConection {
 	    //System.out.println("Collection created successfully"); 
 	     
 	     //Retrieving a collection
-	     MongoCollection<Document> collection = database.getCollection("cTwitterPrueba");
+	     MongoCollection<Document> collection = database.getCollection("cTwitter");
 	     //collection.drop();
 	     //System.out.println("Collection sampleCollection selected successfully");
-	     return collection;
-	      	    
+	     return collection;      	    
+	}
+	
+	public DBCollection ConectarMongo2(){
+	    // Creating a Mongo client 
+		mClient = new MongoClient( "localhost" , 27017 );
+        DB db = mClient.getDB("myTwitter");
+        DBCollection coll = db.getCollection("cTwitter");
+	     return coll;      	    
 	}
 	
 	public void DesconectarMongo(){
@@ -44,27 +51,49 @@ public class MongoConection {
 		 //Ejemplo para agregar datos
 	      Document document = new Document();      
 	      if (status.getPlace() != null){
-	    	  if (status.getPlace().getName().contains("Ch")){
-	    		  document.append("location", status.getPlace().getName());
+	    	  if (status.getPlace().getName().contains("Chil")){
+	    		  document.append("location", status.getPlace().getName())
+	    		.append("id", status.getId()) 
+	  	      	.append("text", status.getText())
+	      		.append("user_id", status.getUser().getId())
+	      		.append("user_name", status.getUser().getName())
+	      		.append("user_nickname", status.getUser().getScreenName())
+	  	  		.append("retweets",status.getRetweetCount())
+	  	  		.append("likes",status.getFavoriteCount())
+	  	  		.append("followed", status.getUser().getFollowersCount())
+	  	  		.append("followers", status.getUser().getFriendsCount())
+	  	  		.append("created_at",status.getCreatedAt());
+	  	      collection.insertOne(document); 
 	    	  }
 	    	  
 	      }else if (status.getUser().getLocation() != null){
-	    	  if (status.getUser().getLocation().contains("Ch")){
-	    		  document.append("location", status.getUser().getLocation());
+	    	  if (status.getUser().getLocation().contains("Chil")){
+	    		  document.append("location", status.getUser().getLocation())
+	    	    .append("id", status.getId()) 
+	  	      	.append("text", status.getText())
+	      		.append("user_id", status.getUser().getId())
+	      		.append("user_name", status.getUser().getName())
+	      		.append("user_nickname", status.getUser().getScreenName())
+	  	  		.append("retweets",status.getRetweetCount())
+	  	  		.append("likes",status.getFavoriteCount())
+	  	  		.append("followed", status.getUser().getFollowersCount())
+	  	  		.append("followers", status.getUser().getFriendsCount())
+	  	  		.append("created_at",status.getCreatedAt());
+	  	      collection.insertOne(document); 
 	    	  }	    	  
 	      }else{
-	    	  return;
+	    	  document.append("id", status.getId()) 
+	  	      	.append("text", status.getText())
+	      		.append("user_id", status.getUser().getId())
+	      		.append("user_name", status.getUser().getName())
+	      		.append("user_nickname", status.getUser().getScreenName())
+	  	  		.append("retweets",status.getRetweetCount())
+	  	  		.append("likes",status.getFavoriteCount())
+	  	  		.append("followed", status.getUser().getFollowersCount())
+	  	  		.append("followers", status.getUser().getFriendsCount())
+	  	  		.append("created_at",status.getCreatedAt());
+	  	      collection.insertOne(document); 
 	      }
-	      document.append("id", status.getId()) 
-	      	.append("text", status.getText())
-    		.append("user_id", status.getUser().getId())
-    		.append("user_name", status.getUser().getName())
-    		.append("user_nickname", status.getUser().getScreenName())
-	  		.append("retweets",status.getRetweetCount())
-	  		.append("likes",status.getFavoriteCount())
-	  		.append("followed", status.getUser().getFollowersCount())
-	  		.append("created_at",status.getCreatedAt());
-	      collection.insertOne(document); 
 	}
 	
 	public void mostrarColeccion(MongoCollection<Document> collection){
@@ -125,6 +154,20 @@ public class MongoConection {
 	    //return cursor.one();
 	    return retorno;
 	    
+	}
+	
+	public String FindLocationByIdTweet(String idTweet, DBCollection collection){
+		 BasicDBObject whereQuery = new BasicDBObject();
+		 long id = Long.parseLong(idTweet);
+		 whereQuery.put("id", id);
+		 DBCursor cursor = collection.find(whereQuery);
+		 while(cursor.hasNext()) {
+				DBObject o = (DBObject) cursor.next();
+				String location =  (String) o.get("location");
+				System.out.println((String) o.get("text"));
+				return location;
+		    }
+		 return null;
 	}
 
 

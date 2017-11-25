@@ -17,9 +17,15 @@ import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
+import com.mongodb.DBCollection;
+
+import cl.usach.spring.backend.apis.GoogleMaps;
+import cl.usach.spring.backend.database.MongoConection;
+
 
 public class Analysis {
-	
+	private GoogleMaps gMaps =  new GoogleMaps();
+	private MongoConection mdb = new MongoConection();
 	private Map<String, Integer> crearMapaPalabrasLegales(){
 		Map<String, Integer> valorDePalabras = new HashMap<String,Integer>();
 		valorDePalabras.put("buena*", 1);
@@ -197,8 +203,7 @@ public class Analysis {
 		}catch (Exception ex){
 			System.out.println("Error");
 			return null;
-		}
-		
+		}	
 	}
 	
 	public int[] SepararAprobacionDesaprobacion(Map<String, Integer> valorTweets){
@@ -219,4 +224,42 @@ public class Analysis {
 		}
 		return numeroTweets; 	
 	}
+	
+
+	
+	public int[][] SepararAprobacionDesaprobacionPorRegion(Map<String, Integer> valorTweets){
+		
+		//0-> aprobacion
+		//1 -> desaprobacion
+		DBCollection coll = mdb.ConectarMongo2();
+		int region;
+		int[][] numeroTweets = new int[16][2];
+		for (int i=0 ; i < 16; i++){
+			numeroTweets[i][0] = 0;
+			numeroTweets[i][1] = 0;
+		}			
+		Iterator it = valorTweets.entrySet().iterator();
+		while(it.hasNext()){
+			Map.Entry e = (Map.Entry)it.next();
+			System.out.println("Key:" + e.getKey().toString() + " value = " + e.getValue());
+			String localidad = mdb.FindLocationByIdTweet(e.getKey().toString(), coll);
+			if (localidad != null){
+				region = gMaps.ObtenerRegion(localidad);
+			}else{
+				region = 15;
+			}
+			
+			if ((int)e.getValue() > 0){
+				numeroTweets[region][0]++;
+			}else if((int)e.getValue() < 0){
+				numeroTweets[region][1]++;
+			}
+		}
+		
+		for (int i=0 ; i < 16; i++){
+			System.out.println( "region: " + i +" aprob: " + numeroTweets[i][0]);
+			System.out.println( "region: " + i +" desaprob: " + numeroTweets[i][1] );
+		}
+		return numeroTweets;
+	}	
 }

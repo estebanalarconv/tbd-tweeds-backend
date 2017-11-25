@@ -29,8 +29,8 @@ public class TweetsTopic {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date createAt;
 
-	@Column(name="topic_name",nullable = false)
-	private String topicName;
+	//@Column(name="topic_name",nullable = false)
+	//private String topicName;
 	@ManyToOne
     @JoinColumn(name="topic_id", referencedColumnName = "id")
     private Topic topic;
