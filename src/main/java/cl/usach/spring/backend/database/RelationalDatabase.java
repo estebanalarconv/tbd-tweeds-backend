@@ -30,7 +30,7 @@ import cl.usach.spring.backend.repository.TopicRepository;
 import cl.usach.spring.backend.repository.TweetsTopicRepository;
 
 @Component
-public class RelationalDatabase implements ApplicationRunner{
+public class RelationalDatabase{
 	private Search search = new Search();
 	private Analysis analysis = new Analysis();
 
@@ -145,15 +145,7 @@ public class RelationalDatabase implements ApplicationRunner{
 			approvalTopicLegal.setApproval(resultApproval);
 			approvalTopicLegal.setDisapproval(resultDesapproval);
 			aTopicByRegionRepository.save(approvalTopicLegal);
-		}
+		}	
 		
-		
-		
-	}
-
-
-	@Override
-	public void run(ApplicationArguments args) throws Exception {
-		ActualizarTweetsPorTopico();
 	}
 }

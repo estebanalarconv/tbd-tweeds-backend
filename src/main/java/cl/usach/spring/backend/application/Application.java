@@ -35,35 +35,13 @@ public class Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
-<<<<<<< HEAD
-		/*
-		Index index = new Index();
-		index.IndexarTweets();
-		Analysis analysis = new Analysis();
-		Map<String, Integer> approvalLegal = analysis.AnalisisSentimientosTweets(1);
-		Map<String, Integer> approvalMedical = analysis.AnalisisSentimientosTweets(0);
-		int approvalMedicalValues[][] = analysis.SepararAprobacionDesaprobacionPorRegion(approvalMedical);
-		int approvalLegalValues[][] = analysis.SepararAprobacionDesaprobacionPorRegion(approvalLegal);*/
-		
-		/*
-		MongoConection mg = new MongoConection();
-		GoogleMaps gmaps = new GoogleMaps();
-		DBCollection coll = mg.ConectarMongo2();
-		String id = "932749707167879169";
-		String location = mg.FindLocationByIdTweet(id, coll);
-		System.out.println("result: "+ location);
-		if (location != null){
-			int result = gmaps.ObtenerRegion(location);
-			System.out.println("region: "+ result);*/
-		
-		
-=======
-		Index index = new Index();
-		index.IndexarTweets();
+
+		//Index index = new Index();
+		//index.IndexarTweets();
 		//ScheduledTasks st = new ScheduledTasks();
 		//st.IndexTweets();
 
->>>>>>> a05bd26ab0faf2975e50ff220ee7ee702c79701a
+
 		//TwitterStreaming twitter = new TwitterStreaming();
 		//twitter.init();
 		/*ScheduledTasks st = new ScheduledTasks();

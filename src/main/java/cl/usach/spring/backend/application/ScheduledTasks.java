@@ -69,9 +69,9 @@ public class ScheduledTasks {
 		 rdb.ActualizarAprobacionPorRegion(aTopicByRegionRepository);
 
 	 }
-
 	//@Scheduled(cron = "*/10 * * * * *")
-	public void updateTopics()
+	/*
+	 public void updateTopics()
 	{
 		System.out.println("[Scheduled Task: Update Tweets topics]");
 		int totalMedicina = search.totalTweetsMedical();
@@ -90,49 +90,10 @@ public class ScheduledTasks {
 		//System.out.println("LALALALALAALALA");
 		tweetsTopicRepository.save(tweetsTopicMedical);
 		tweetsTopicRepository.save(tweetsTopicLegal);
-		tweetsTopicRepository.save(tweetsTopicRecreational);
-<<<<<<< HEAD
+
 	}*/
+
 	
-=======
-	}
 
-	//@Scheduled(cron = "*/10 * * * * *")
-	public void updateApproval()
-	{
-		Map<String, Integer> approvalLegal = analysis.AnalisisSentimientosTweets(1);
-		System.out.println("Largo Map: " + approvalLegal.size());
-		Map<String, Integer> approvalMedical = analysis.AnalisisSentimientosTweets(0);
-		System.out.println("Largo Map 2: " + approvalMedical.size());
-		int approvalMedicalValues[] = analysis.SepararAprobacionDesaprobacion(approvalMedical);
-		int approvalLegalValues[] = analysis.SepararAprobacionDesaprobacion(approvalLegal);
-		ApprovalTopic approvalTopicLegal = approvalTopicRepository.findOne(1);
-		ApprovalTopic approvalTopicMedical = approvalTopicRepository.findOne(2);
-		Topic topicLegal = new Topic();
-		Topic topicMedical = new Topic();
-		topicLegal.setId(1);
-		topicMedical.setId(1);
-		
-		approvalTopicLegal.setApproval(approvalLegalValues[0]);
-		approvalTopicLegal.setDisapproval(approvalLegalValues[1]);
-		approvalTopicMedical.setApproval(approvalMedicalValues[0]);
-		approvalTopicMedical.setDisapproval(approvalMedicalValues[1]);
-		
-		approvalTopicRepository.save(approvalTopicMedical);
-		approvalTopicRepository.save(approvalTopicLegal);
-		
-		//INGRESAR DATOS AL HISTORIAL
-		HistoryApprovalTopic hATopicLegal = new HistoryApprovalTopic();
-		HistoryApprovalTopic hATopicMedicinal = new HistoryApprovalTopic();
-		hATopicLegal.setApproval(approvalLegalValues[0]);
-		hATopicLegal.setDisapproval(approvalLegalValues[1]);
-		hATopicLegal.setTopic(topicLegal);
-		hATopicMedicinal.setApproval(approvalMedicalValues[0]);
-		hATopicMedicinal.setDisapproval(approvalMedicalValues[1]);
-		hATopicMedicinal.setTopic(topicMedical);
-		historyApprovalTopicRepository.save(hATopicLegal);
-		historyApprovalTopicRepository.save(hATopicMedicinal);
 
-	}
->>>>>>> a05bd26ab0faf2975e50ff220ee7ee702c79701a
 }
