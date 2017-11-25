@@ -3,6 +3,7 @@ package cl.usach.spring.backend.application;
 import cl.usach.spring.backend.apis.GoogleMaps;
 import cl.usach.spring.backend.apis.TwitterStreaming;
 import cl.usach.spring.backend.database.MongoConection;
+import cl.usach.spring.backend.database.RelationalDatabase;
 import cl.usach.spring.backend.lucene.*;
 
 import cl.usach.spring.backend.repository.TweetsTopicRepository;
@@ -34,6 +35,7 @@ public class Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
+<<<<<<< HEAD
 		/*
 		Index index = new Index();
 		index.IndexarTweets();
@@ -55,6 +57,13 @@ public class Application {
 			System.out.println("region: "+ result);*/
 		
 		
+=======
+		Index index = new Index();
+		index.IndexarTweets();
+		//ScheduledTasks st = new ScheduledTasks();
+		//st.IndexTweets();
+
+>>>>>>> a05bd26ab0faf2975e50ff220ee7ee702c79701a
 		//TwitterStreaming twitter = new TwitterStreaming();
 		//twitter.init();
 		/*ScheduledTasks st = new ScheduledTasks();
@@ -72,78 +81,12 @@ public class Application {
 		System.out.println("Aprobacion Medicinal"+ approvalMedicalValues[0]);
 		System.out.println("Aprobacion Medicinal"+ approvalMedicalValues[1]);
 		System.out.println("Aprobacion Legal"+ approvalLegalValues[0]);
-		System.out.println("Desaprobacion Legal"+ approvalLegalValues[1]);*/
+		System.out.println("Desaprobacion Legal"+ approvalLegalValues[1]);
 		
-		/*
+
 		ScheduledTasks st = new ScheduledTasks();
-		st.IndexTweets();
-  		//st.updateApproval();
-        
-		Driver driver = GraphDatabase.driver( "bolt://localhost", AuthTokens.basic( "neo4j", "7017" ) );
-        Session session = driver.session();
-        //borrar grafos
-        session.run("match (a)-[r]->(b) delete r");
-        session.run("match (n) delete n");
-        
-        //nodos de las categorias
-        session.run( "CREATE (t:Topic {name:'Legalización'})");
-        session.run( "CREATE (t:Topic {name:'Medicinal'})");
-        session.run( "CREATE (t:Topic {name:'Recreativo'})");
-        
-        Search luceneSearch = new Search();
-        List<String> listIds = luceneSearch.getLegalTweets();
-        
-        String name = new String();
-        String tweet = new String();
-        int weight ; 
-        
-        MongoConection mc = new MongoConection();
-        List<DBObject> tweets = mc.findManyTweetData(listIds); 
-        
-        // Nodos Legalizacion
-        for(int i = 0; i < 5; i++)
-        {
-        	name = tweets.get(i).get("user_name").toString();
-        	tweet = tweets.get(i).get("text").toString();
-        	weight = i;
-        	session.run("create (t:Tweet {name:'"+name+"', tweet:'"+tweet+"', peso:'"+i+"'})");
-        	session.run("match (a:Tweet) where a.name='"+name+"'"
-                    + "  match (b:Topic) where b.name='Legalización' "
-                    + "  create (a)-[r:RLegal]->(b)");
-        }
-     
-        // Nodos Medicinal
-        listIds = null;
-        listIds = luceneSearch.getMedicalTweets();
-        tweets = mc.findManyTweetData(listIds);
-        
-        for(int i = 0; i < 5; i++)
-        {
-        	name = tweets.get(i).get("user_name").toString();
-        	tweet = tweets.get(i).get("text").toString();
-        	session.run("create (t:Tweet {name:'"+name+"', tweet:'"+tweet+"', peso:'"+i+"'})");
-        	session.run("match (a:Tweet) where a.name='"+name+"'"
-                    + "  match (b:Topic) where b.name='Medicinal' "
-                    + "  create (a)-[r:RMedicinal]->(b)");
-        }
+		st.IndexTweets();*/
 
-        //Nodos Recreativos
-        listIds = null;
-        listIds = luceneSearch.getRecreativeTweets();
-        tweets = mc.findManyTweetData(listIds);
-        
-        for(int i = 0; i < 5; i++)
-        {
-
-        	name = tweets.get(i).get("user_name").toString();
-        	tweet = tweets.get(i).get("text").toString();
-        	session.run("create (t:Tweet {name:'"+name+"', tweet:'"+tweet+"', peso:'"+i+"'})");
-        	session.run("match (a:Tweet) where a.name='"+name+"'"
-                    + "  match (b:Topic) where b.name='Recreativo' "
-                    + "  create (a)-[r:RRecreativo]->(b)");
-        }
-        session.close();
-        driver.close();*/
 		
 	}
 }
