@@ -60,8 +60,8 @@ public class MongoConection {
 	      		.append("user_nickname", status.getUser().getScreenName())
 	  	  		.append("retweets",status.getRetweetCount())
 	  	  		.append("likes",status.getFavoriteCount())
-	  	  		.append("followed", status.getUser().getFollowersCount())
-	  	  		.append("followers", status.getUser().getFriendsCount())
+	  	  		.append("followers", status.getUser().getFollowersCount())
+	  	  		.append("followees", status.getUser().getFriendsCount())
 	  	  		.append("created_at",status.getCreatedAt());
 	  	      collection.insertOne(document); 
 	    	  }
@@ -76,8 +76,8 @@ public class MongoConection {
 	      		.append("user_nickname", status.getUser().getScreenName())
 	  	  		.append("retweets",status.getRetweetCount())
 	  	  		.append("likes",status.getFavoriteCount())
-	  	  		.append("followed", status.getUser().getFollowersCount())
-	  	  		.append("followers", status.getUser().getFriendsCount())
+	  	  		.append("followers", status.getUser().getFollowersCount())
+	  	  		.append("followees", status.getUser().getFriendsCount())
 	  	  		.append("created_at",status.getCreatedAt());
 	  	      collection.insertOne(document); 
 	    	  }	    	  
@@ -89,8 +89,8 @@ public class MongoConection {
 	      		.append("user_nickname", status.getUser().getScreenName())
 	  	  		.append("retweets",status.getRetweetCount())
 	  	  		.append("likes",status.getFavoriteCount())
-	  	  		.append("followed", status.getUser().getFollowersCount())
-	  	  		.append("followers", status.getUser().getFriendsCount())
+	  	  		.append("followers", status.getUser().getFollowersCount())
+	  	  		.append("followees", status.getUser().getFriendsCount())
 	  	  		.append("created_at",status.getCreatedAt());
 	  	      collection.insertOne(document); 
 	      }
@@ -163,7 +163,7 @@ public class MongoConection {
 		 DBCursor cursor = collection.find(whereQuery);
 		 while(cursor.hasNext()) {
 				DBObject o = (DBObject) cursor.next();
-				String location =  (String) o.get("location");
+				String location =  (String) o.get("location_user");
 				System.out.println((String) o.get("text"));
 				return location;
 		    }
