@@ -1,6 +1,7 @@
 package cl.usach.spring.backend.application;
 
 import cl.usach.spring.backend.database.MongoConection;
+import cl.usach.spring.backend.database.Neo4j;
 import cl.usach.spring.backend.database.RelationalDatabase;
 import cl.usach.spring.backend.entities.ApprovalTopic;
 import cl.usach.spring.backend.entities.HistoryApprovalTopic;
@@ -51,6 +52,7 @@ public class ScheduledTasks {
 	 public Analysis analysis = new Analysis();
 	 public MongoConection mc = new MongoConection();
 	 public RelationalDatabase rdb = new RelationalDatabase();
+	 public Neo4j neo = new Neo4j();
 
 	 //@Scheduled(cron="*/10 * * * * *")
 	 /*public void TaskTwitterStreaming() {
@@ -93,7 +95,13 @@ public class ScheduledTasks {
 
 	}*/
 
-	
+	//@Scheduled(cron = "0 1 * * * *")
+	public void createGraph()
+	{
+		neo.connect("bolt://localhost","neo4j","secret");
+		neo.createRelationNodes();
+		neo.disconnect();
+	}
 
 
 }

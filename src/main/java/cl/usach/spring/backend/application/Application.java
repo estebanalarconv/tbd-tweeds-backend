@@ -3,6 +3,7 @@ package cl.usach.spring.backend.application;
 import cl.usach.spring.backend.apis.GoogleMaps;
 import cl.usach.spring.backend.apis.TwitterStreaming;
 import cl.usach.spring.backend.database.MongoConection;
+import cl.usach.spring.backend.database.Neo4j;
 import cl.usach.spring.backend.database.RelationalDatabase;
 import cl.usach.spring.backend.lucene.*;
 

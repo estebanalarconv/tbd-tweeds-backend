@@ -1,5 +1,6 @@
 package cl.usach.spring.backend.database;
 
+import cl.usach.spring.backend.lucene.Index;
 import cl.usach.spring.backend.lucene.Search;
 import com.mongodb.DBObject;
 import com.mongodb.client.MongoCollection;
@@ -55,7 +56,8 @@ public class Neo4j {
     {
         MongoConection mc = new MongoConection();
         Search luceneSearch = new Search();
-        List<String> listIds = luceneSearch.getLegalTweets();
+        Index index = new Index();
+        index.IndexarTweets();
         String name = new String();
         String tweet = new String();
         int weight;
@@ -69,7 +71,6 @@ public class Neo4j {
         deleteAll();
         createCategoryNode("Legalización");
         createCategoryNode("Medicina");
-        createCategoryNode("Recreación");
 
 
         //LEGALES
@@ -91,7 +92,7 @@ public class Neo4j {
                         + "  merge (u)-[r:Tweet]->(c)");
             }
 
-            else if (recreationalTweets.contains(legalTweets.get(i)))
+            /*else if (recreationalTweets.contains(legalTweets.get(i)))
             {
                 name = tweetsLegal.get(i).get("userName").toString();
                 System.out.println(name);
@@ -104,7 +105,7 @@ public class Neo4j {
                 session.run("match (u: User) where u.name='"+name+"'"
                         + "  match (c:Category) where c.name='Recreación' "
                         + "  merge (u)-[r:Tweet]->(c)");
-            }
+            }*/
 
             else
             {
@@ -125,9 +126,9 @@ public class Neo4j {
             if(legalTweets.contains(medicalTweets.get(i)))
             {
                 System.out.println("ENTRAMOS A MEDICOS LEGALES");
-                name = tweetsLegal.get(i).get("userName").toString();
+                name = tweetsMedical.get(i).get("userName").toString();
                 System.out.println(name);
-                tweet = tweetsLegal.get(i).get("text").toString();//.replaceAll("'","\"");
+                tweet = tweetsMedical.get(i).get("text").toString();//.replaceAll("'","\"");
                 System.out.println(tweet);
                 session.run("merge (u: User {name:'"+ name +"',tweet:'"+tweet+"'})");
                 session.run("match (u: User) where u.name='"+name+"'"
@@ -138,11 +139,11 @@ public class Neo4j {
                         + "  merge (u)-[r:Tweet]->(c)");
             }
 
-            else if (recreationalTweets.contains(medicalTweets.get(i)))
+            /*else if (recreationalTweets.contains(medicalTweets.get(i)))
             {
-                name = tweetsLegal.get(i).get("userName").toString();
+                name = tweetsMedical.get(i).get("userName").toString();
                 System.out.println(name);
-                tweet = tweetsLegal.get(i).get("text").toString();//.replaceAll("'","\"");
+                tweet = tweetsMedical.get(i).get("text").toString();//.replaceAll("'","\"");
                 System.out.println(tweet);
                 session.run("merge (u: User {name:'"+ name +"',tweet:'"+tweet+"'})");
                 session.run("match (u: User) where u.name='"+name+"'"
@@ -151,14 +152,14 @@ public class Neo4j {
                 session.run("match (u: User) where u.name='"+name+"'"
                         + "  match (c:Category) where c.name='Recreación' "
                         + "  merge (u)-[r:Tweet]->(c)");
-            }
+            }*/
 
             else
             {
                 System.out.println("SOLO MEDICOS");
-                name = tweetsLegal.get(i).get("userName").toString();
+                name = tweetsMedical.get(i).get("userName").toString();
                 System.out.println(name);
-                tweet = tweetsLegal.get(i).get("text").toString();//.replaceAll("'","\"");
+                tweet = tweetsMedical.get(i).get("text").toString();//.replaceAll("'","\"");
                 System.out.println(tweet);
                 session.run("merge (u: User {name:'"+ name +"',tweet:'"+tweet+"'})");
                 session.run("match (u: User) where u.name='"+name+"'"
@@ -167,13 +168,13 @@ public class Neo4j {
             }
         }
 
-        for (int i = 0; i<30; i++)
+        /*for (int i = 0; i<30; i++)
         {
             if(legalTweets.contains(recreationalTweets.get(i)))
             {
-                name = tweetsLegal.get(i).get("userName").toString();
+                name = tweetsRecreational.get(i).get("userName").toString();
                 System.out.println(name);
-                tweet = tweetsLegal.get(i).get("text").toString();//.replaceAll("'","\"");
+                tweet = tweetsRecreational.get(i).get("text").toString();//.replaceAll("'","\"");
                 System.out.println(tweet);
                 session.run("merge (u: User {name:'"+ name +"',tweet:'"+tweet+"'})");
                 session.run("match (u: User) where u.name='"+name+"'"
@@ -186,9 +187,9 @@ public class Neo4j {
 
             else if (medicalTweets.contains(recreationalTweets.get(i)))
             {
-                name = tweetsLegal.get(i).get("userName").toString();
+                name = tweetsRecreational.get(i).get("userName").toString();
                 System.out.println(name);
-                tweet = tweetsLegal.get(i).get("text").toString();//.replaceAll("'","\"");
+                tweet = tweetsRecreational.get(i).get("text").toString();//.replaceAll("'","\"");
                 System.out.println(tweet);
                 session.run("merge (u: User {name:'"+ name +"',tweet:'"+tweet+"'})");
                 session.run("match (u: User) where u.name='"+name+"'"
@@ -202,16 +203,20 @@ public class Neo4j {
             else
             {
                 System.out.println("SOLO RECREATIVOS");
-                name = tweetsLegal.get(i).get("userName").toString();
-                System.out.println(name);
-                tweet = tweetsLegal.get(i).get("text").toString();//.replaceAll("'","\"");
-                System.out.println(tweet);
-                session.run("MERGE (u: User {name:'"+ name +"',tweet:'"+tweet+"'})");
-                session.run("match (u: User) where u.name='"+name+"'"
-                        + "  match (c:Category) where c.name='Recreación' "
-                        + "  MERGE (u)-[r:Tweet]->(c)");
+                if (tweetsRecreational.get(i).get("userName")!=null)
+                {
+                    name = tweetsRecreational.get(i).get("userName").toString();
+                    System.out.println(name);
+                    tweet = tweetsRecreational.get(i).get("text").toString();//.replaceAll("'","\"");
+                    System.out.println(tweet);
+                    session.run("MERGE (u: User {name:'"+ name +"',tweet:'"+tweet+"'})");
+                    session.run("match (u: User) where u.name='"+name+"'"
+                            + "  match (c:Category) where c.name='Recreación' "
+                            + "  MERGE (u)-[r:Tweet]->(c)");
+                }
+
             }
-        }
+        }*/
 
     }
 
@@ -299,6 +304,7 @@ public class Neo4j {
 
     public Map<String, Object> getGraph()
     {
+
         this.getNodes();
         this.getRelationNodes();
         return mapDouble("nodes",nodeList,"links",relationNodeList);
