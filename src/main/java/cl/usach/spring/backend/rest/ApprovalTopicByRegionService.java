@@ -1,11 +1,7 @@
 package cl.usach.spring.backend.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import cl.usach.spring.backend.entities.ApprovalTopic;
 import cl.usach.spring.backend.entities.ApprovalTopicByRegion;
@@ -15,6 +11,7 @@ import cl.usach.spring.backend.repository.ApprovalTopicRepository;
 
 @RestController
 @RequestMapping("/approvals_by_region")
+@CrossOrigin
 public class ApprovalTopicByRegionService {
 	
 	public ApprovalTopicByRegion approvalByRegion;

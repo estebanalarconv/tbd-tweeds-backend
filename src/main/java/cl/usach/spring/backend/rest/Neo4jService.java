@@ -2,16 +2,14 @@ package cl.usach.spring.backend.rest;
 
 
 import cl.usach.spring.backend.database.Neo4j;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/graph")
+@CrossOrigin
 public class Neo4jService {
 
     private Neo4j nj;

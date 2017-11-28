@@ -189,21 +189,21 @@ public class Search {
 		public List<String> getRecreativeTweets() {		
 			//Asignación de palabras de categoría medicina
 					List <String> palabrasMedicina=new ArrayList<>();
-					palabrasMedicina.add("bongazo*");
-					palabrasMedicina.add("matacola*");
-					palabrasMedicina.add("pito*");
-					palabrasMedicina.add("skt1*");
-					palabrasMedicina.add("sacate1*");
-					palabrasMedicina.add("felicidad*");
-					palabrasMedicina.add("relajo*");
-					palabrasMedicina.add("relax*");
-					palabrasMedicina.add("creatividad*");
-					palabrasMedicina.add("recreativo*");
-					palabrasMedicina.add("recreativa*");
-					palabrasMedicina.add("hachis*");
-					palabrasMedicina.add("compartir*");
-					palabrasMedicina.add("socializar*");
-					palabrasMedicina.add("cultivar*");
+					palabrasMedicina.add("bongazo");
+					palabrasMedicina.add("matacola");
+					palabrasMedicina.add("pito");
+					palabrasMedicina.add("skt1");
+					palabrasMedicina.add("sacate1");
+					palabrasMedicina.add("felicidad");
+					palabrasMedicina.add("relajo");
+					palabrasMedicina.add("relax");
+					palabrasMedicina.add("creatividad");
+					palabrasMedicina.add("recreativo");
+					palabrasMedicina.add("recreativa");
+					palabrasMedicina.add("hachis");
+					palabrasMedicina.add("compartir");
+					palabrasMedicina.add("socializar");
+					palabrasMedicina.add("cultivar");
 									
 					
 					List<String> idEncontrados=new ArrayList<>();
@@ -230,7 +230,7 @@ public class Search {
 					palabrasMedicina.add("legal*");
 					palabrasMedicina.add("legalización*");
 					palabrasMedicina.add("legalincenlas**");
-					palabrasMedicina.add("ley**");
+					palabrasMedicina.add("ley*");
 					palabrasMedicina.add("20000");
 					palabrasMedicina.add("prohibicion*");
 					palabrasMedicina.add("prohibición*");
@@ -261,9 +261,9 @@ public class Search {
 					palabrasMedicina.add("Presidente*");
 					palabrasMedicina.add("narcotrafico*");
 					palabrasMedicina.add("Narcotrafico*");
-					palabrasMedicina.add("traficar*");
+					palabrasMedicina.add("traficar");
 					palabrasMedicina.add("traficante*");
-					palabrasMedicina.add("PDI*");
+					palabrasMedicina.add("PDI");
 					palabrasMedicina.add("autoridad*");
 					palabrasMedicina.add("cocaína*");
 					palabrasMedicina.add("cocaina*");
@@ -271,7 +271,7 @@ public class Search {
 					palabrasMedicina.add("despenalizar*");
 					palabrasMedicina.add("despenalizacion*");
 					palabrasMedicina.add("despenalización*");
-					palabrasMedicina.add("ratis*");
+					palabrasMedicina.add("ratis");
 					
 					List<String> idEncontrados=new ArrayList<>();
 					List<String> idSearch=new ArrayList<>();
