@@ -113,7 +113,7 @@ public class Search {
 	            	for(int i=0;i<hits.length;i++){
 	            		int docId= hits[i].doc;
 	                    Document doc = isearcher.doc(docId);
-	                    retorno.add(doc.get("_id"));
+	                    retorno.add(doc.get("id"));
 	                 }
 	    			System.out.println("La palabra "+word+" esta en"+hits.length+"documentos");
 	

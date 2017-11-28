@@ -59,7 +59,7 @@ public class ApprovalTopicByRegion {
 			return approval;
 		}
 
-		public void setApproval(long approval) {
+		public void setApproval(double approval) {
 			this.approval = approval;
 		}
 
@@ -67,7 +67,7 @@ public class ApprovalTopicByRegion {
 			return disapproval;
 		}
 
-		public void setDisapproval(long disapproval) {
+		public void setDisapproval(double disapproval) {
 			this.disapproval = disapproval;
 		}
 

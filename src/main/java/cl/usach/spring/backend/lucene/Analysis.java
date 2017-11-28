@@ -2,11 +2,15 @@ package cl.usach.spring.backend.lucene;
 
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.DirectoryReader;
@@ -261,5 +265,68 @@ public class Analysis {
 			System.out.println( "region: " + i +" desaprob: " + numeroTweets[i][1] );
 		}
 		return numeroTweets;
-	}	
+	}
+	
+	public String[][] CalcularInfluenciaTweets(List<String> idTweets){
+		DBCollection collection = mdb.ConectarMongo2();
+		
+		DBCollection coll = mdb.ConectarMongo2();
+		Map<String, Double> valorTweets = new HashMap<String,Double>();
+		for (int i=0 ; i < idTweets.size() ; i++){
+			System.out.println("ID"+idTweets.get(i));
+			int[] valores = mdb.FindFollowersById(idTweets.get(i), coll);
+			
+			// [0] -> followers
+			// [1] -> followees
+			if (valores[0] == 0 && valores[1] == 0){
+				valorTweets.put(idTweets.get(i), (double) 0);
+			}else{
+				//followers/ (followers+followees)
+				double result = (double)valores[0] / (double)(valores[0]+valores[1]);
+				valorTweets.put(idTweets.get(i), result);
+			}
+		}
+		/*
+		Map<String, Double> valorTweets = new HashMap<String,Double>();
+		valorTweets.put("45546", 2.5);
+		valorTweets.put("4556", 2.5);
+		valorTweets.put("446", 3.0);
+		valorTweets.put("56", 1.0);
+		valorTweets.put("56ad", 5.5);
+		valorTweets.put("56dsss", 5.0);*/
+		
+		int tamanio = valorTweets.size();
+		String[][] tweetsOrdenados = new String[tamanio][2];
+
+		for (int i=0 ; i < tamanio ; i++){
+			String idTweet = obtenerTweetMasInfluyente(valorTweets);
+			tweetsOrdenados[i][0] = idTweet;
+			tweetsOrdenados[i][1] = mdb.FindUserById(idTweet, collection);
+			System.out.println(idTweet);
+			valorTweets.remove(idTweet);
+		}
+		return tweetsOrdenados; 
+		
+	}
+	
+	private String obtenerTweetMasInfluyente(Map<String, Double> valorTweets){
+		Iterator iterator = valorTweets.keySet().iterator();
+		double mayor = -1.0;
+		String tweetMayor = null;
+		
+		while (iterator.hasNext()) {
+			Object key = iterator.next();
+			if (valorTweets.get(key) >= mayor){
+				mayor = valorTweets.get(key);
+				tweetMayor = (String) key;
+			}
+		}
+		
+		return tweetMayor;
+			
+	}
+	
+	
+	
+	
 }

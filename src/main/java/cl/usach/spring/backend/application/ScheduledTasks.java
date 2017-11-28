@@ -5,6 +5,7 @@ import cl.usach.spring.backend.database.RelationalDatabase;
 import cl.usach.spring.backend.entities.ApprovalTopic;
 import cl.usach.spring.backend.entities.HistoryApprovalTopic;
 import cl.usach.spring.backend.entities.Topic;
+import cl.usach.spring.backend.entities.TweetsRank;
 import cl.usach.spring.backend.entities.TweetsTopic;
 import cl.usach.spring.backend.lucene.Analysis;
 import cl.usach.spring.backend.lucene.Index;
@@ -62,11 +63,13 @@ public class ScheduledTasks {
 	 public void ActualizarDatabase()
 	 {
 		 System.out.println(">>>>>>Tarea Programada Inicio: Indexando Tweets<<<<<<");
-		 //index.IndexarTweets();
+		 index.IndexarTweets();
 		 System.out.println(">>>>>>Tarea Programada Fin: Indexando Tweets<<<<<<");
 		 rdb.ActualizarTweetsPorTopico(tweetsTopicRepository, HTweetsTopicRepository);
 		 rdb.ActualizarAprobacionDesaprobacion(approvalTopicRepository, historyApprovalTopicRepository);
 		 rdb.ActualizarAprobacionPorRegion(aTopicByRegionRepository);
+		 TweetsRank tRank = new TweetsRank();
+		 tRank.setTweetsLists();
 
 	 }
 	//@Scheduled(cron = "*/10 * * * * *")

@@ -124,13 +124,13 @@ public class RelationalDatabase{
 		Topic topicMedical = new Topic();
 		topicLegal.setId(1);
 		topicMedical.setId(2);
-		long resultApproval, resultDesapproval;
+		double resultApproval, resultDesapproval;
 		
 		//LEGAL
 		for (int i=1 ; i<17; i++){
 			approvalTopicLegal = aTopicByRegionRepository.findOne(i);
-			resultApproval = ((long)vLegal[i][0])/((long)(vLegal[i][0]+vLegal[i][1]));
-			resultDesapproval = ((long)vLegal[i][1])/((long)(vLegal[i][0]+vLegal[i][1]));
+			resultApproval = ((double)vLegal[i][0])/((double)(vLegal[i][0]+vLegal[i][1]));
+			resultDesapproval = ((double)vLegal[i][1])/((double)(vLegal[i][0]+vLegal[i][1]));
 			approvalTopicLegal.setApproval(resultApproval);
 			approvalTopicLegal.setDisapproval(resultDesapproval);
 			aTopicByRegionRepository.save(approvalTopicLegal);
@@ -140,8 +140,8 @@ public class RelationalDatabase{
 		//MEDICAL
 		for (int i=17 ; i<33 ; i++){
 			approvalTopicLegal = aTopicByRegionRepository.findOne(i);
-			resultApproval = ((long)vMedical[i][0])/((long)(vMedical[i][0]+vMedical[i][1]));
-			resultDesapproval = ((long)vMedical[i][1])/((long)(vMedical[i][0]+vMedical[i][1]));
+			resultApproval = ((double)vMedical[i][0])/((double)(vMedical[i][0]+vMedical[i][1]));
+			resultDesapproval = ((double)vMedical[i][1])/((double)(vMedical[i][0]+vMedical[i][1]));
 			approvalTopicLegal.setApproval(resultApproval);
 			approvalTopicLegal.setDisapproval(resultDesapproval);
 			aTopicByRegionRepository.save(approvalTopicLegal);

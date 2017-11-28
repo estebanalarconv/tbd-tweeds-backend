@@ -169,6 +169,40 @@ public class MongoConection {
 		    }
 		 return null;
 	}
+	
+	public String FindUserById(String idTweet, DBCollection collection){
+		BasicDBObject whereQuery = new BasicDBObject();
+		long id = Long.parseLong(idTweet); 
+		whereQuery.put("id", id);
+		DBCursor cursor = collection.find(whereQuery);
+		while(cursor.hasNext()) {
+			DBObject o = (DBObject) cursor.next();
+			String user_id =  (String) o.get("user_id").toString();
+			return user_id;
+		}
+		return null;
+	}
+	
+	// [0] -> followers
+	// [1] -> followees
+	public int[] FindFollowersById(String idTweet, DBCollection collection){
+		BasicDBObject whereQuery = new BasicDBObject();
+		 long id = Long.parseLong(idTweet);
+		 whereQuery.put("id", id);
+		 DBCursor cursor = collection.find(whereQuery);
+		 int [] valores = new int[2];
+		 valores[0] = 0;
+		 valores[1] = 0;
+		 while(cursor.hasNext()) {
+				DBObject o = (DBObject) cursor.next();
+				if (o.get("followers") != null && o.get("followees") != null){
+					valores[0] =  (int) o.get("followers");
+					valores[1] =  (int) o.get("followees");
+					return valores;
+				}				
+		    }
+		 return valores;
+	}
 
 
 }

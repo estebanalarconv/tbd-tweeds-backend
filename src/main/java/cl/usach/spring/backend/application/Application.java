@@ -35,9 +35,19 @@ public class Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
-
-		//Index index = new Index();
-		//index.IndexarTweets();
+		/*
+		MongoConection mdb = new MongoConection();
+		DBCollection collection = mdb.ConectarMongo2();
+		int[] valores = mdb.FindFollowersById("932749707167879169", collection);
+		System.out.println("valor0: " + valores[0]);
+		System.out.println("valor1: " + valores[1]);
+		Analysis analysis = new Analysis();*/
+		//TwitterStreaming twitter = new TwitterStreaming();
+		//twitter.init();
+		//analysis.calcularInfluenciaTweets();
+		System.out.println("INDEXANDO TWEEETS");
+		Index index = new Index();
+		index.IndexarTweets();
 		//ScheduledTasks st = new ScheduledTasks();
 		//st.IndexTweets();
 
